@@ -1,5 +1,8 @@
 config/secrets.yml
 config/database.yml
 config/cable.yml
+config/puma.rb
 db/development.sqlite3
 db/test.sqlite3
+config/credentials.yml.enc
+config/master.key
