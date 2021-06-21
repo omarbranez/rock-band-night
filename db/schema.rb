@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 5) do
     t.index ["genre_id"], name: "index_songs_on_genre_id"
   end
 
-  create_table "songs_users", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "song_id", null: false
+  create_table "user_songs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "song_id"
   end
 
   create_table "users", force: :cascade do |t|
