@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     def create
         @user = User.find_or_create_by(username: params[:username])
-        redirect_to 'songs/index'        
+        redirect_to 'users/index'        
     end
 
     def logout

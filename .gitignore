@@ -41,4 +41,4 @@ yarn-debug.log*
 .yarn-integrity
 config/initializers/secret_token.rb
 config/master.key
-.env
+!.env

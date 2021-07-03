@@ -1,3 +1,4 @@
 <%= @song.full_title %> <br>
 <%= link_to @song.artist.full_name, artist_path(@song.artist) %> <br>
 <%= link_to @song.genre.name, genre_path(@song.genre) %> <br>
+<%= link_to "Edit Artist", edit_song_path(@song) %>

@@ -66,3 +66,6 @@ gem 'dotenv'
 gem 'require_all'
 gem 'json'
 gem 'friendly_id', '~> 5.4.0'
+gem 'omniauth'
+gem "omniauth-rails_csrf_protection"
+
