@@ -68,4 +68,4 @@ gem 'json'
 gem 'friendly_id', '~> 5.4.0'
 gem 'omniauth'
 gem "omniauth-rails_csrf_protection"
-
+gem "omniauth-microsoft-live", :github => "9peso/omniauth-microsoft-live"

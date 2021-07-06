@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
-    helper_method :current_user, :logged_in?, :owns_resource?, :redirect_if_not_logged_in, :message_if_not_admin, :message_if_not_logged_in
+    helper_method :current_user, :logged_in?, :owns_resource?, :redirect_if_not_logged_in, :message_if_not_admin, :message_if_not_logged_in, :authorized?
 
     private
 
@@ -32,5 +32,9 @@ class ApplicationController < ActionController::Base
         if !logged_in?
             flash[:notice] = "You need to be logged in to perform this action"
         end
+    end
+
+    def authorized?
+        redirect_to login_path unless logged_in?
     end
 end
