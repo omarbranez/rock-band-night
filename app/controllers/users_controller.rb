@@ -15,6 +15,16 @@ class UsersController < ApplicationController
         end
     end
 
+    def show
+        @user = User.find_by(id: params[:id])
+    end
+
+    def add_song
+        song = Song.friendly.find(params[:id])
+        current_user.user_songs.create(song_id: song.id)
+        redirect_to songs_path
+    end
+
     private
     
     def user_params

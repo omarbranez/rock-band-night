@@ -1,6 +1,9 @@
 class SongsController < ApplicationController
     def index
         @songs = Song.all
+        if current_user
+            @user_songs = UserSong.where(user_id: current_user.id)
+        end
     end
 
     def show
@@ -21,6 +24,6 @@ class SongsController < ApplicationController
     private
 
     def song_params
-        params.require(:song).permit(:artist_id)
+        params.require(:song).permit(:artist_id) # this is temporary so i can fix the mismatched artists
     end
 end
