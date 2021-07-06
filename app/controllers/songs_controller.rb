@@ -2,7 +2,9 @@ class SongsController < ApplicationController
     def index
         @songs = Song.all
         if current_user
-            @user_songs = UserSong.where(user_id: current_user.id)
+            # binding.pry
+            @user_song = current_user.user_songs.build(user_id: current_user.id)
+            # if someone is logged in, initialize a new song for that user
         end
     end
 

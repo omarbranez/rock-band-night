@@ -1,4 +1,15 @@
-<%= @song.full_title %> <br>
+<h1><%= @song.full_title %></h1> <br>
 <%= link_to @song.artist.full_name, artist_path(@song.artist) %> <br>
 <%= link_to @song.genre.name, genre_path(@song.genre) %> <br>
 <%= link_to "Edit Artist", edit_song_path(@song) %>
+
+<% if current_user %>
+    <% if current_user.user_songs.where(song_id: @song.id).exists? %>
+        <% binding.pry %>
+        <p>You currently own this song</p>
+    <% else %>
+        <p>You do not currently own this song</p>
+    <% end %>
+<% else %>
+    <p>Sign Up or Log In to track your songs!</p>
+<% end %>

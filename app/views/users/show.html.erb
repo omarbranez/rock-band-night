@@ -1,2 +1,9 @@
-<h1>Welcome, <%= current_user.username %></h1>
-<p>You currently have <%= current_user.songs.count %> songs in your collection. </p>
+<% if current_user %>
+    <h1>Welcome, <%= current_user.username %></h1>
+    <p>You currently have <%= current_user.songs.count %> songs in your collection. </p>
+    <p>The last song you added was <%= link_to current_user.songs.last.full_title, song_path %></p>
+<% else %>
+    <p><%= @user.username %>'s Profile Page %> </p>
+    <p><%= @user.username %> owns <%= @user.songs.count %> songs.</p> 
+    <p>The last song <%= @user.username %> added was <%= @user.songs.last.full_title %></p>
+<% end %>

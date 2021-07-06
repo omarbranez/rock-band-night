@@ -16,13 +16,14 @@
             <tr>
                 <td><%= link_to song.full_title, song %></td>
                 <td><%= link_to song.artist.full_name, song.artist %></td>
-                <td><%= link_to song.genre, song.genre.name %></td>
+                <td><%= link_to song.genre.name, song.genre %></td>
                 <% if current_user %>
-                    <% if !@user_songs.where(song_id: song.id).exists? %>
-                        <td><%= form_with model: @user_song, method: :post do |f|%></td>
-                                <%= f.hidden_field :user.id %>
-                                <%= f.hidden_field :song.id %>
-                                <%= f.submit "Add song to collection" %>
+                    <% if !current_user.user_songs.where(song_id: song.id).exists? %>
+                        <td><%= form_with model: @user_song, method: :post, url: add_song_path do |f|%>
+                              
+                                <%= f.hidden_field :user_id %>
+                                <%= f.hidden_field :song_id, :value => song.id %>
+                                <%= f.submit "Add song to collection" %></td>
                             <% end %>
                     <% else %>
                         <td>Song in collection</td>
