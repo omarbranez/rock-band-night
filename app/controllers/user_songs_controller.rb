@@ -5,6 +5,12 @@ class UserSongsController < ApplicationController
         redirect_to user_path(user_song.user)
     end
 
+    def destroy
+        user_song = UserSong.find_by(song_id: params[:user_song][:song_id])
+        # binding.pry
+        user_song.delete
+        redirect_to songs_path
+    end
     private
     
     def user_song_params

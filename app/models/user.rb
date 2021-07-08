@@ -11,4 +11,7 @@ class User < ActiveRecord::Base
     # will split users into HOSTS and GUESTS
     # HOST can read, update, destroy (after song is played)
     # GUEST can read, create (no skipping other people's songs!) 
+    # def self.find_or_create_from_windows(user_info)
+    #   find_or_create_by(email: user_info[:email] do |user|)
+    # 
 end
