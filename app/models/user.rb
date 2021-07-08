@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
     # def self.find_or_create_from_windows(user_info)
     #   find_or_create_by(email: user_info[:email] do |user|)
     # 
+
+    def last_song_added
+        Song.find(self.user_songs.last.song_id).full_title
+    end
 end
