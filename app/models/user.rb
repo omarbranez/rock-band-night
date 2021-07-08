@@ -16,6 +16,6 @@ class User < ActiveRecord::Base
     # 
 
     def last_song_added
-        Song.find(self.user_songs.last.song_id).full_title
+        Song.find(self.user_songs.last.song_id)
     end
 end

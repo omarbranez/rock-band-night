@@ -8,7 +8,11 @@ class Song < ActiveRecord::Base
     has_many :users, through: :user_songs
 
     def full_title
-        "#{self.article}" + " " + "#{self.name}"
+        if self.article != ""
+            "#{self.article}" + " " + "#{self.name}"
+        else
+            "#{self.name}"
+        end
     end
 
     def artist_name
