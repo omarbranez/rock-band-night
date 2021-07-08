@@ -1,5 +1,6 @@
 <h1><%= @song.full_title %></h1> <br>
-<p>Artist: <%= link_to @song.artist.full_name, artist_path(@song.artist) %></p>
+
+<p>Artist: <%= @song.is_song_cover? %> <%= link_to @song.artist.full_name, artist_path(@song.artist) %></p>
 <p>Genre: <%= link_to @song.genre.name, genre_path(@song.genre) %></p>
 <p>Year Released: <%= @song.year %></p>
 <p>Song Length: <%= @song.length_in_minutes %></p>

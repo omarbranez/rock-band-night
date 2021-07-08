@@ -1,7 +1,7 @@
 <%= @artist.full_name %><br>
 <%= @artist.songs.first.genre.name %><br>
-<%= @artist.songs.each do |song| %>
+<% @artist.songs.each do |song| %>
     <ul>
-        <li><%= link_to song.full_title, song %></li>
+        <li><%= link_to song.full_title, song %>
     </ul>
 <% end %>

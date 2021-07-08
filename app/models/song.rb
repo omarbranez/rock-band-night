@@ -32,4 +32,10 @@ class Song < ActiveRecord::Base
             "This song does not have vocals"
         end
     end
+
+    def is_song_cover?
+        if self.cover == true
+            "As made famous by "
+        end
+    end
 end
