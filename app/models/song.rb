@@ -18,4 +18,18 @@ class Song < ActiveRecord::Base
     def artist_name
         self.try(:artist).try(:name)
     end
+
+    def length_in_minutes
+        Time.at(self.duration / 1000).strftime("%M:%S")
+    end
+    
+    def harmony_parts?
+        if self.vocal_parts > 1
+            "Yes, this song has #{self.vocal_parts} vocal parts"
+        elsif self.vocal_parts == 1
+            "Solo Only"
+        else
+            "This song does not have vocals"
+        end
+    end
 end
