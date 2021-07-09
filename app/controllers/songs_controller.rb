@@ -10,7 +10,9 @@ class SongsController < ApplicationController
 
     def show
         @song = Song.friendly.find(params[:id])
-        @user_song = current_user.user_songs.find_by(user_id: current_user.id, song_id: @song.id)
+        if current_user.songs.exists?(@song.id)
+            @user_song = current_user.user_songs.find_by(user_id: current_user.id, song_id: @song.id)
+        end
     end
 
     def edit

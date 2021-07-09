@@ -1,10 +1,15 @@
 <h1><%= @song.full_title %></h1> <br>
-<p>Average User Rating: <%= @song.average_rating %> 
-    <div hx-target="this" hx-swap="outerHTML">
-    <% if @song.own_rating_exists?(current_user) %>        
+<%# binding.pry %>
+<p>Average User Rating: 
+    <% if @user_song %>
+        <%= @user_song.average_rating %> based on <%= @user_song.count_ratings %> ratings. </p><br>
+    <% else %>
+        There are no ratings for this song yet.<br>
+    <% end %>
+    <% if current_user.songs.exists?(@song.id)%>        
         <%= render partial: 'rate' %>
     <% else %>
-        <%= render partial: 'rate' %>
+        You can rate this song if are signed in and you own it.
     <% end %></p>
 <p>Artist: <%= @song.is_song_cover? %> <%= link_to @song.artist.full_name, artist_path(@song.artist) %></p>
 <p>Genre: <%= link_to @song.genre.name, genre_path(@song.genre) %></p>
