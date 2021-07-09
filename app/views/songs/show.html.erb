@@ -9,17 +9,19 @@
     <% if current_user.songs.exists?(@song.id)%>        
         <%= render partial: 'rate' %>
     <% else %>
-        You can rate this song if are signed in and you own it.
+        You can rate this song if you are signed in and you own it.
     <% end %></p>
 <p>Artist: <%= @song.is_song_cover? %> <%= link_to @song.artist.full_name, artist_path(@song.artist) %></p>
 <p>Genre: <%= link_to @song.genre.name, genre_path(@song.genre) %></p>
 <p>Year Released: <%= @song.year %></p>
 <p>Song Length: <%= @song.length_in_minutes %></p>
 <p>Harmonies?: <%= @song.harmony_parts? %></p>
+<%= render partial: 'player', locals: {song: @song} %> <br>
+
 <%= link_to "Edit Artist", edit_song_path(@song) %>
 
 <% if current_user %>
-    <% if current_user.user_songs.where(song_id: @song.id).exists? %>
+    <% if current_user.songs.exists?(@song.id) %>
         <p>You currently own this song</p>
     <% else %>
         <p>You do not currently own this song</p>
