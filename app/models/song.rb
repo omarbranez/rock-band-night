@@ -38,4 +38,18 @@ class Song < ActiveRecord::Base
             "As made famous by "
         end
     end
+
+    def average_rating
+        if !UserSong.where(song_id: self.id).average(:rating).nil?
+            UserSong.where(song_id: self.id).average(:rating).to_f
+        else
+            "This song does not have any ratings yet"
+        end
+    end
+
+    def own_rating_exists?(user)
+        # binding.pry
+        !UserSong.where(song_id: self.id).pluck(:rating).nil?
+        # !current_user.user_songs.where(song_id: self.id).rating.nil?
+    end
 end

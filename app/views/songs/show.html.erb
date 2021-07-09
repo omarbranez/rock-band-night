@@ -1,5 +1,11 @@
 <h1><%= @song.full_title %></h1> <br>
-
+<p>Average User Rating: <%= @song.average_rating %> 
+    <div hx-target="this" hx-swap="outerHTML">
+    <% if @song.own_rating_exists?(current_user) %>        
+        <%= render partial: 'rate' %>
+    <% else %>
+        <%= render partial: 'rate' %>
+    <% end %></p>
 <p>Artist: <%= @song.is_song_cover? %> <%= link_to @song.artist.full_name, artist_path(@song.artist) %></p>
 <p>Genre: <%= link_to @song.genre.name, genre_path(@song.genre) %></p>
 <p>Year Released: <%= @song.year %></p>

@@ -15,9 +15,21 @@ class UserSongsController < ApplicationController
             redirect_to songs_path, flash: { message: "You cannot delete another user's songs" }
         end
     end
+
+    def rate_song
+        user_song = UserSong.find_by(user_song_params)
+        # binding.pry
+        user_song.update(rating_params)
+        redirect_to song_path(Song.find(user_song.song_id))
+    end
+
     private
     
     def user_song_params
         params.require(:user_song).permit(:user_id, :song_id)
+    end
+
+    def rating_params
+        params.require(:user_song).permit(:user_id, :song_id, :rating)
     end
 end
