@@ -1,0 +1,7 @@
+<h1><%= @genre.name %></h1>
+<p>The following songs belong to this genre:</p>
+<% @genre.songs.each do |song| %>
+    <ul>
+        <li><%= link_to song.full_title, song %></li>
+    </ul>
+<% end %>
