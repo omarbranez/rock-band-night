@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Rock Band Night</title>
+		<%= csrf_meta_tags %>
+    	<%= csp_meta_tag %>
+		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => "reload" %>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<script src="https://unpkg.com/htmx.org@1.4.1"></script>
+		<script src="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"></script>
+	</head>
+	<body class="homepage is-preload">
+		<script>
+			function myFunction() {
+  				document.getElementById("myDropdown").classList.toggle("show");
+			}
+			window.onclick = function(event) {
+  				if (!event.target.matches('.dropbtn')) {
+    				var dropdowns = document.getElementsByClassName("dropdown-content");
+    				var i;
+    				for (i = 0; i < dropdowns.length; i++) {
+	      				var openDropdown = dropdowns[i];
+      					if (openDropdown.classList.contains('show')) {
+        					openDropdown.classList.remove('show');
+      					}		
+    				}
+  				}
+			}
+		</script>
+		<div id="page-wrapper">
+			<div id="header-wrapper">
+				<div id="header" class="container">
+					<h1 id="logo"><%= link_to "Rock Band Night", root_path %></h1>
+					<nav id="nav">
+						<ul>
+							<li>
+								<div class="dropdown">
+									<button 
+										class="dropbtn"
+										type="button"
+										aria-expanded="false"
+										onclick="myFunction()"
+										// hx-target="#dropdown-content"
+										// ht-trigger="click"
+										// hx-indicator=".htmx-indicator"
+										>
+										Main Menu
+									</button>
+									<div id="myDropdown" class="dropdown-content">
+									    <%= link_to "Sign Up", new_user_path if !current_user %>
+    	    							<%= link_to "Sign In", signin_path if !current_user %>
+        								<%= link_to "My Profile", user_path(current_user) if current_user %>
+        								<%= link_to "Log Out", logout_path, method: :post if current_user %>
+									</div>
+								</div>
+							</li>
+							<li><a href="left-sidebar.html">Left Sidebar</a></li>
+							<li class="break"><a href="right-sidebar.html">Right Sidebar</a></li>
+							<li><a href="no-sidebar.html">No Sidebar</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="wrapper">
+					<p id="notice"><%= notice %></p>
+          				<% if flash[:message] %>
+            				<div class="notice alert-warning">
+              				<p><%= flash[:message] %></p>
+            				</div>
+          				<% end %>
+					<section id="hero" class="container">
+							<header>
+								<h2>Welcome to Rock Band Night
+								<br />
+								For Smoother Rocking Sessions!</h2>
+							</header>
+							<ul class="actions">
+								<li><a href="#" class="button">Get this party started</a></li>
+							</ul>
+					</section>
+					<%= yield %>
+				</div>
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<div id="footer" class="container">
+						<header class="major">
+							<h2>Last Updated:</h2>
+							<p>Initial</p>
+						</header>
+				</div>
+				<div id="copyright" class="container">
+					<ul class="menu">
+						<li><small><strong>This site is neither operated nor sponsored by Harmonix Music Systems, Inc. Rock Band and all related titles and logos are trademarks of Harmonix Music Systems, Inc. All rights reserved.</strong><br></li>
+        				<li><small><strong>ALL OTHER LOGOS, COMPANY NAMES, BRANDS, IMAGES, TRADEMARKS AND OTHER INTELLECTUAL PROPERTY ARE THE PROPERTY OF THEIR RESPECTIVE OWNERS.</strong></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

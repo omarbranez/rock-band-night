@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   delete '/usersongs', to: 'user_songs#destroy', as: 'remove_song'
   get '/signin', to: 'session#new', as: 'signin'
   post '/session', to: 'session#create', as: 'session'
-  delete '/session', to: 'session#destroy'
+  delete '/session', to: 'session#destroy', as: 'logout'
   
 
 end

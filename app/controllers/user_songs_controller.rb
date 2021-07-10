@@ -20,7 +20,7 @@ class UserSongsController < ApplicationController
         user_song = UserSong.find_by(user_song_params)
         # binding.pry
         user_song.update(rating_params)
-        redirect_to song_path(Song.find(user_song.song_id))
+        redirect_to song_path(Song.find(user_song.song_id)), flash: { message: "Rating Successfully Updated!" }
     end
 
     private

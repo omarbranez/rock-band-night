@@ -70,3 +70,4 @@ gem 'omniauth'
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-microsoft-live", :github => "9peso/omniauth-microsoft-live"
 gem 'kaminari'
+gem 'font-awesome-less'
