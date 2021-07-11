@@ -39,16 +39,52 @@ class Song < ActiveRecord::Base
         end
     end
 
-    # def average_rating
-    #     if !UserSong.where(song_id: self.id).count(:rating).nil?
-    #         UserSong.where(song_id: self.id).average(:rating).to_f
-    #     else
-    #         "This song does not have any ratings yet."
-    #     end
-    # end
-
     def own_rating_exists?(user)
         !UserSong.where(song_id: self.id).pluck(:rating).nil?
         # !current_user.user_songs.where(song_id: self.id).rating.nil?
+        # does this do anything anymore?
     end
+
+    def primary_source
+        case self.source
+            when 1
+                "Rock Band 1"
+            when 2
+                "Rock Band 2"
+            when 3
+                "Rock Band 3"
+            when 4
+                "Rock Band 4"
+            when 21 
+                "Rock Band Track Pack: Vol. 1"
+            when 22 
+                "Rock Band Track Pack: Vol. 2"
+            when 23 
+                "AC/DC Live: Rock Band Track Pack"
+            when 24 
+                "Rock Band Track Pack: Classic Rock"
+            when 25 
+                "Rock Band Country Track Pack"
+            when 26 
+                "Rock Band Metal Track Pack"
+            when 27 
+                "Rock Band Country Track Pack 2"
+            when 51
+                "LEGO: Rock Band"
+            when 52
+                "Green Day: Rock Band"
+            when 53
+                "Rock Band Blitz"    
+            when 99
+                "Rock Band Network"
+            else
+                "Downloadable Content"
+        end
+    end
+
+    def game_already_in_collection?(source_id)
+        current_user.songs.where(source: source_id).size  == Song.where(source: source_id).size
+    end
+   
+
 end

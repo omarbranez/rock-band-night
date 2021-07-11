@@ -69,6 +69,7 @@
               				<p><%= flash[:message] %></p>
             				</div>
           				<% end %>
+					<% if current_page?(root_path) %>
 					<section id="hero" class="container">
 							<header>
 								<h2>Welcome to Rock Band Night
@@ -76,9 +77,10 @@
 								For Smoother Rocking Sessions!</h2>
 							</header>
 							<ul class="actions">
-								<li><a href="#" class="button">Get this party started</a></li>
+								<li><a href="#" class="button">Get this party started!a></li>
 							</ul>
 					</section>
+					<% end %>
 					<%= yield %>
 				</div>
 			<!-- Footer -->

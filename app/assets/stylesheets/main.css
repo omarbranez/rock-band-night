@@ -2111,6 +2111,11 @@ input, select, textarea {
 		font-size: 300%;
 	}
 
+	.wrapper > h2 {
+		color: rgb(255, 255, 255);
+		font-size: 180%;
+	}
+
 	.image-wrapper {
 		position: relative;
 	}

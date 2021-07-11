@@ -40,3 +40,13 @@
         <% end %>
     </tbody>
 </table>
+<% if current_user %>
+    <p>Quick Add an Entire Game's Setlist!</p>
+    <p><%= render_game_button("Rock Band 1", 1) unless game_already_in_collection?(1) %></p>
+    <p><%= render_game_button("Rock Band 2", 2) unless game_already_in_collection?(2) %></p>
+    <p><%= render_game_button("Rock Band 3", 3) unless game_already_in_collection?(3) %></p>
+    <p><%= render_game_button("Rock Band 4", 4) unless game_already_in_collection?(4) %></p>
+    <p><%= render_game_button("LEGO: Rock Band", 51) unless game_already_in_collection?(51) %></p>
+    <p><%= render_game_button("Green Day: Rock Band", 52) unless game_already_in_collection?(52) %></p>
+    <p><%= render_game_button("Rock Band Blitz", 53) unless game_already_in_collection?(53) %></p>
+<% end %>

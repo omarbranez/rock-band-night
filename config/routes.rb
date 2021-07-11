@@ -12,11 +12,11 @@ Rails.application.routes.draw do
   get '/users/:id/edit', to: 'users#edit', as: 'edit_user'
   # get '/usersongs/rate', to: 'user_songs#rate', as: 'rate_song' # this is a partial, no need to route it
   post '/usersongs', to: 'user_songs#create', as: 'add_song'
+  post '/usersongs/game', to: 'user_songs#add_game', as: 'add_game' 
   patch '/usersongs', to: 'user_songs#rate_song', as: 'rate_song'
   delete '/usersongs', to: 'user_songs#destroy', as: 'remove_song'
   get '/signin', to: 'session#new', as: 'signin'
   post '/session', to: 'session#create', as: 'session'
   delete '/session', to: 'session#destroy', as: 'logout'
-  
 
 end
