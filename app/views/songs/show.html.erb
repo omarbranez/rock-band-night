@@ -19,8 +19,6 @@
 <p>Source: <%= @song.primary_source %></p>
 <%= render partial: 'player', locals: {song: @song} %> <br>
 
-<%= link_to "Edit Artist", edit_song_path(@song) %>
-
 <% if current_user %>
     <% if current_user.songs.exists?(@song.id) %>
         <p>You currently own this song</p>
@@ -30,3 +28,5 @@
 <% else %>
     <p>Sign Up or Log In to track your songs!</p>
 <% end %>
+
+<%= edit_button_for_admin %>

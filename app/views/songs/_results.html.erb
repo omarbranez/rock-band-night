@@ -1,16 +1,14 @@
-<table class="table" id="results">
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Genre</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="results">
     <tr>
     <% if @artists.present? %>
       <% @artists.each do |artist| %>
         <td><%= artist.name %></td>
-        <td><%= artist.songs.first.genre.name %></td>
       <% end %>
     </tr>
     <% end %>

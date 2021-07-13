@@ -18,10 +18,6 @@ Rails.application.routes.draw do
   get '/signin', to: 'session#new', as: 'signin'
   post '/session', to: 'session#create', as: 'session'
   delete '/session', to: 'session#destroy', as: 'logout'
-  namespace :admin do
-    resources :songs, only: [:new]
-    post '/songs/', to: 'admin/songs#create'
-    get '/artistsearch', to: 'admin/songs#song_artist_search'
-  end
+  get '/artistsearch', to: 'songs#song_artist_search', as: 'artist_search'
 
 end

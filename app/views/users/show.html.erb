@@ -9,3 +9,6 @@
     <p><%= @user.username %> owns <%= @user.songs.count %> songs.</p> 
     <p>The last song <%= @user.username %> added was <%= @user.last_song_added %></p>
 <% end %>
+
+<%= link_to "Return to Song List", songs_path %>
+<%# link_to "Begin Party Mode", party#root %>

@@ -9,7 +9,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://unpkg.com/htmx.org@1.4.1"></script>
-		<script src="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"></script>
+		<script src="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
 		
 
 	</head>
@@ -62,12 +63,11 @@
 					</nav>
 				</div>
 				<div class="wrapper">
-					<p id="notice"><%= notice %></p>
-          				<% if flash[:message] %>
-            				<div class="notice alert-warning">
-              				<p><%= flash[:message] %></p>
-            				</div>
-          				<% end %>
+          			<% flash.each do |type, msg| %>
+  						<div>
+    						<%= msg %>
+  						</div>
+					<% end %>
 					<% if current_page?(root_path) %>
 					<section id="hero" class="container">
 							<header>

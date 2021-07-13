@@ -1,7 +1,9 @@
 class UserSongsController < ApplicationController
     def create
         user_song = UserSong.create(user_song_params)
-        redirect_to user_path(user_song.user)
+        # redirect_to user_path(user_song.user)
+        flash[:notice] = "Successfully added #{last_song_added} to collection!"
+        redirect_to session.delete(:return_to)
     end
 
     def destroy
@@ -44,6 +46,10 @@ class UserSongsController < ApplicationController
         songs.each do |song|
             UserSong.create(user_id: current_user.id, song_id: song)
         end
+    end
+
+    def last_song_added
+        Song.find(current_user.user_songs.last.song_id).full_title
     end
     
 end

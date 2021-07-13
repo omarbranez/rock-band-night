@@ -1,8 +1,10 @@
 class SongsController < ApplicationController
     
     def index
-        @songs = Song.order(:name).page(params[:page])
+        @songs = Song.order('LOWER(name)').page(params[:page])
+        # case insensitive
         @user_song = current_user.user_songs.build(user_id: current_user.id)
+        session[:return_to] = request.referrer #keep track of what page they're on
         # if someone is logged in, initialize a new song for that user
     end
 
@@ -21,7 +23,7 @@ class SongsController < ApplicationController
     end
 
     def create
-        song = Song.new(new_song_params)
+        song = Song.new(song_params)
         binding.pry
         if params[:song][:artist_id].empty?
             song.artist = Artist.find_or_create_by(name: params[:song][:artist_attributes][:name])
@@ -35,7 +37,11 @@ class SongsController < ApplicationController
         end
         if song.valid?
             song.save
+            flash[:notice] = "#{song.full_title} has been successfully added to database!"
             redirect_to songs_path
+        else
+            flash[:notice] = "An error occurred during song creation"
+            redirect_to new_song_path
         end
     end
 
@@ -45,26 +51,31 @@ class SongsController < ApplicationController
     end
 
     def update
-        @song = Song.friendly.find(params[:id])
-        @song.update(song_params)
-        redirect_to @song
-    end
+        song = Song.friendly.find(params[:id])
 
-    def song_artist_search
-        if !params[:query].empty?
-            @artists = Artist.where("name LIKE ?", "%#{params[:query]}")
-            binding.pry
+        if params[:song][:artist_id].empty?
+            song.artist = Artist.find_or_create_by(name: params[:song][:artist_attributes][:name])
+        else
+            song.artist = Artist.find(params[:song][:artist_id])
+        end
+        if params[:song][:genre_id].empty?
+            song.genre = Genre.find_or_create_by(name: params[:song][:genre_attributes][:name])
+        else
+            song.genre = Genre.find(params[:song][:genre_id])
+        end
+        if song.valid?
+            song.save
+            flash[:notice] = "#{song.full_title} has been successfully updated"
+            redirect_to song
+        else
+            flash[:notice] = "An error occurred during song modification"
+            redirect_to edit_song_path
         end
     end
 
     private
-
-    # def song_params 
-    #     params.require(:song).permit(:artist_id) # this is temporary so i can fix the mismatched artists
-    # end
-    # we can build just patch them now
     
-    def new_song_params
+    def song_params
         params.require(:song).permit(:name, :artist_id, :genre_id, :artist_attributes => [:name], :genre_attributes => [:name])
     end
 

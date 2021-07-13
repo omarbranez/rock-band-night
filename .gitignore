@@ -42,3 +42,4 @@ yarn-debug.log*
 config/initializers/secret_token.rb
 config/master.key
 .env
+scrap

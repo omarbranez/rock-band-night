@@ -55,19 +55,6 @@
     #     Song.where(song_hash).first_or_create
     # end
 
-# agent = Mechanize.new
-# new_song_links = agent.get("https://dlcquickplay.com/dlc.php?&page=2")
-# new_song_links = new_song_links.links[50..162].each do |link|
-#     new_song = Nokogiri::HTML(URI.open("https://dlcquickplay.com#{link.href[1..-1]}")) # there's a leading "."
-#     binding.pry
-# end
-
-
-
-# new_song.css('#box').css('.content').text 
-# the text in the box with album name, release, and genre
-
-
 songs = Song.all
 songs.each do |song|
     url = URI("https://api.spotify.com/v1/search?q=track:#{song.name.gsub(" ","+")}%20artist:#{song.artist.name.gsub(" ","+")}&type=track")

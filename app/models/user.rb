@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
     def last_song_added
         Song.find(self.user_songs.last.song_id)
     end
+
+    def user_is_admin
+        current_user == User.find(1)
+    end
 end

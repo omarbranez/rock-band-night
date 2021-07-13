@@ -98,11 +98,11 @@ class Song < ActiveRecord::Base
         if self.name[0..2] == "The"
             self.article = "The"
             self.name = self.name.delete_prefix("The ")
+        elsif self.name[0..1] == "A "
+            self.article = "A"
+            self.name = self.name.delete_prefix("A ")
         else
-            if self.name[0..1] == "A "
-                self.article = "A"
-                self.name = self.name.delete_prefix("A ")
-            end
+            self.article = ""
         end
     end
 
