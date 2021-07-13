@@ -10,10 +10,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://unpkg.com/htmx.org@1.4.1"></script>
 		<script src="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"></script>
+		
+
 	</head>
 	<body class="homepage is-preload">
 		<script>
-			function myFunction() {
+			function dropMenu() {
   				document.getElementById("myDropdown").classList.toggle("show");
 			}
 			window.onclick = function(event) {
@@ -41,10 +43,7 @@
 										class="dropbtn"
 										type="button"
 										aria-expanded="false"
-										onclick="myFunction()"
-										// hx-target="#dropdown-content"
-										// ht-trigger="click"
-										// hx-indicator=".htmx-indicator"
+										onclick="dropMenu()"
 										>
 										Main Menu
 									</button>

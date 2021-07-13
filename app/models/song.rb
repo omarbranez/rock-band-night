@@ -7,6 +7,10 @@ class Song < ActiveRecord::Base
     has_many :user_songs
     has_many :users, through: :user_songs
 
+    validates_presence_of :name
+    accepts_nested_attributes_for :artist
+    accepts_nested_attributes_for :genre
+
     def full_title
         if self.article != ""
             "#{self.article}" + " " + "#{self.name}"
@@ -82,9 +86,22 @@ class Song < ActiveRecord::Base
         end
     end
 
-    def game_already_in_collection?(source_id)
-        current_user.songs.where(source: source_id).size  == Song.where(source: source_id).size
+    def artist_name=(name)
+        name.check_name_for_article
+        self.artist = Artist.find_or_create_by(name: name)
+
     end
-   
+
+    def check_name_for_article
+        if self.name[0..2] == "The"
+            self.article = "The"
+            self.name = self.name.delete_prefix("The ")
+        else
+            if self.name[0..1] == "A "
+                self.article = "A"
+                self.name = self.name.delete_prefix("A ")
+            end
+        end
+    end
 
 end

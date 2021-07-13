@@ -3,13 +3,19 @@ class Artist < ActiveRecord::Base
     friendly_id :name, use: :slugged
     has_many :songs
 
+    before_create :check_name_for_article
+
     def full_name
         "#{self.article}" + " " + "#{self.name}"
     end
 
-
-    # def to_param
-    #     return nil unless persisted?
-    #     [id, slug].join('-') # combine the id and the slug
-    # end
+    def check_name_for_article # will refactor as abstract class, since song has the same
+        if self.name[0..2] == "The"
+            self.article = "The"
+        else
+            if self.name[0..1] == "A "
+                self.article = "A"
+            end
+        end
+    end
 end

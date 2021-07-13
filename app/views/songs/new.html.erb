@@ -1,0 +1,25 @@
+<h1>Add a song</h1>
+<%= form_for @song do |f| %>
+    <%= f.label "Song Name" %><br>
+    <%= f.text_field :name %><br>
+    <%= f.label "Artists in Database" %><br>
+    <%= f.collection_select :artist_id, Artist.all, :id, :name, { prompt: "Select Artist", selected: nil } %><br>
+    <%# form_with url: "/artistsearch", method: :get do |f| %>
+        <%# f.label :query, "Search Existing Artists" %>
+        <%# f.text_field :query, :onkeyup => "myFunction()" %>
+    <%# end %>
+
+    <%= f.label "If artist doesn't exist yet, create it here!" %>   
+    <%= f.fields_for :artist, @song.build_artist do |artist_fields| %>
+        <%= artist_fields.label "New Artist Name" %>
+        <%= artist_fields.text_field :name %><br>
+    <% end %>
+    <%= f.label "Genres in Database" %><br>
+    <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select Artist", selected: nil } %><br>
+    <%= f.label "If genre doesn't exist yet, create it here!" %>
+    <%= f.fields_for :genre, @song.build_genre do |genre_fields| %>
+        <%= genre_fields.label "New Genre Name" %>
+        <%= genre_fields.text_field :name %><br>
+    <% end %>
+    <%= f.submit %>
+<% end %>

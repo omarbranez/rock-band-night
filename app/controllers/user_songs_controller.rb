@@ -38,5 +38,12 @@ class UserSongsController < ApplicationController
     def rating_params
         params.require(:user_song).permit(:user_id, :song_id, :rating)
     end
+
+    def add_songs_from_game(source_params)
+        songs = Song.where(source: source_params).pluck(:id)
+        songs.each do |song|
+            UserSong.create(user_id: current_user.id, song_id: song)
+        end
+    end
     
 end
