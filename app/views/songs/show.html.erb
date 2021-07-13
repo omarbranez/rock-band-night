@@ -14,7 +14,7 @@
     <% end %></p>
 <p>Genre: <%= link_to @song.genre.name, genre_path(@song.genre) %></p>
 <p>Year Released: <%= @song.year %></p>
-<p>Song Length: <%= @song.length_in_minutes %></p>
+<p>Song Length: <%= @song.duration ? @song.length_in_minutes : "Not Provided" %></p>
 <p>Harmonies?: <%= @song.harmony_parts? %></p>
 <p>Source: <%= @song.primary_source %></p>
 <%= render partial: 'player', locals: {song: @song} %> <br>

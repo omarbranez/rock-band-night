@@ -11,6 +11,8 @@ class Song < ActiveRecord::Base
     accepts_nested_attributes_for :artist
     accepts_nested_attributes_for :genre
 
+    before_create :check_name_for_article
+
     def full_title
         if self.article != ""
             "#{self.article}" + " " + "#{self.name}"
