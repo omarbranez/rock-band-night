@@ -16,8 +16,8 @@
         <%= paginate @songs %>
         <% @songs.each do |song| %>
             <tr>
-                <td><%= link_to song.full_title, song %></td>
-                <td><%= link_to song.artist.full_name, song.artist %></td>
+                <td><%= link_to song.full_title, artist_song_path(song.artist, song) %></td>
+                <td><%= link_to song.artist.full_name, artist_path(song.artist) %></td>
                 <td><%= link_to song.genre.name, song.genre %></td>
                 <% if current_user %>
                     <% if !current_user.user_songs.where(song_id: song.id).exists? %>

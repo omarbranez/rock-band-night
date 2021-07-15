@@ -10,7 +10,7 @@ module SongsHelper
 
     def edit_button_for_admin
         if current_user == User.find(1)
-            link_to "Edit Song Details", edit_song_path
+            link_to "Edit Song Details", edit_song_path(@song)
         end
     end
 end

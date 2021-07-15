@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'static#home'
-  resources :songs
-  resources :artists
+  resources :artists do
+    resources :songs, only: [:show]
+  end
+  resources :songs, except: [:show]
   resources :genres
   # resources :users
   get '/users/new', to: 'users#new', as: 'new_user'
@@ -18,6 +20,5 @@ Rails.application.routes.draw do
   get '/signin', to: 'session#new', as: 'signin'
   post '/session', to: 'session#create', as: 'session'
   delete '/session', to: 'session#destroy', as: 'logout'
-  get '/artistsearch', to: 'songs#song_artist_search', as: 'artist_search'
 
 end

@@ -1,15 +1,25 @@
 class SongsController < ApplicationController
     
     def index
-        @songs = Song.order('LOWER(name)').page(params[:page])
+        if params[:artist_id]
+            @artist = Artist.find_by(id: params[:artist_id])
+            if @artist.nil?
+                redirect_to artists_path, flash[:alert] = "Artist not found"
+            else
+                @songs = @artist.songs
+            end
+        else
+            @songs = Song.order('LOWER(name)').page(params[:page])
         # case insensitive
-        @user_song = current_user.user_songs.build(user_id: current_user.id)
-        session[:return_to] = request.referrer #keep track of what page they're on
+            @user_song = current_user.user_songs.build(user_id: current_user.id)
+            session[:return_to] = request.referrer #keep track of what page they're on
         # if someone is logged in, initialize a new song for that user
+        end
     end
 
     def show
         @song = Song.friendly.find(params[:id])
+        # @song = Song.friendly.find(params[:slug ])
         if current_user.songs.exists?(@song.id)
             @user_song = current_user.user_songs.find_by(user_id: current_user.id, song_id: @song.id)
         end
