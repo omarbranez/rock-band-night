@@ -2,7 +2,7 @@
     <%= f.label "Song Name" %><br>
     <%= f.text_field :name %><br>
     <%= f.label "Artists in Database" %><br>
-    <%= f.collection_select :artist_id, Artist.all, :id, :name, { prompt: "Select Artist", selected: nil } %><br>
+    <%= f.collection_select :artist_id, Artist.all, :id, :name, { prompt: "Select Artist", selected: @song.artist ? @song.artist.id : nil } %><br>
 
     <%= f.label "If artist doesn't exist yet, create it here!" %>   
     <%= f.fields_for :artist, @song.build_artist do |artist_fields| %>
@@ -10,7 +10,7 @@
         <%= artist_fields.text_field :name %><br>
     <% end %>
     <%= f.label "Genres in Database" %><br>
-    <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select Genre", selected: nil } %><br>
+    <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select Genre", selected: @song.genre ? @song.genre.id : nil } %><br>
     <%= f.label "If genre doesn't exist yet, create it here!" %>
     <%= f.fields_for :genre, @song.build_genre do |genre_fields| %>
         <%= genre_fields.label "New Genre Name" %>
