@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   post '/session', to: 'session#create', as: 'session'
   delete '/session', to: 'session#destroy', as: 'logout'
   namespace :party do
-    resources :guests, :hosts
+    resources :guests, :hosts, :histories
     root 'static#party'
   end
 end
