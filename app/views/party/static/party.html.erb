@@ -1,0 +1,6 @@
+<% if !current_user %>
+    <%= link_to 'Login', signin_path %>
+    <%= link_to 'Register', new_user_path %>
+<% else %>
+    <%= link_to "#{current_user.username}'s Party Page", user_path(current_user) %>
+<% end %>
