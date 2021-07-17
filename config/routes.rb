@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'static#home'
   resources :artists do
-    resources :songs, only: [:show, :new, :create]
+    resources :songs, only: [:show, :new, :create, :edit, :update, :destroy]
     # get '/songs/:artist_id/:song_id', to: 'songs#show', as: 'artist_song' 
     # get '/artists/:artist_id', to: 'artists#show', as: 'artist'
     # saving these for after the project review since i don't want to use restful urls. those are dumb.
   end
-  resources :songs, except: [:show]
+  resources :songs, only: [:index, :new, :create]
   resources :genres
   get '/users/new', to: 'users#new', as: 'new_user'
   get '/users', to: 'users#index', as: 'users'

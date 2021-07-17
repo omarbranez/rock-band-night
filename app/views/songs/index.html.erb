@@ -28,7 +28,7 @@
                                 <%= f.submit "Add song to collection" %></td>
                             <% end %>
                     <% else %>
-                        <td>Song in collection</td>
+                        <td style="text-align:center;">Song in collection</td>
                         <td><%= form_with model: @user_song, method: :delete, url: remove_song_path do |f| %>
                                 <%= f.hidden_field :user_id %>
                                 <%= f.hidden_field :song_id, :value => song.id %>

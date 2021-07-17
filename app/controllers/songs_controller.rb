@@ -34,7 +34,6 @@ class SongsController < ApplicationController
 
     def create
         song = Song.new(song_params)
-        binding.pry
         if params[:song][:artist_id].empty?
             song.artist = Artist.find_or_create_by(name: params[:song][:artist_attributes][:name])
         else
@@ -76,10 +75,10 @@ class SongsController < ApplicationController
         if song.valid?
             song.save
             flash[:notice] = "#{song.full_title} has been successfully updated"
-            redirect_to song
+            redirect_to artist_song_path
         else
             flash[:notice] = "An error occurred during song modification"
-            redirect_to edit_song_path
+            redirect_to edit_artist_song_path
         end
     end
 
