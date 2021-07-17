@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_16_185341) do
+ActiveRecord::Schema.define(version: 2021_07_16_231523) do
 
   create_table "artists", force: :cascade do |t|
     t.string "article"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_07_16_185341) do
     t.integer "selection"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "host_id"
   end
 
   create_table "histories", force: :cascade do |t|
@@ -53,6 +54,14 @@ ActiveRecord::Schema.define(version: 2021_07_16_185341) do
     t.integer "guest_id"
     t.boolean "enabled"
     t.boolean "locked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.integer "host_id"
+    t.integer "guest_id"
+    t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
