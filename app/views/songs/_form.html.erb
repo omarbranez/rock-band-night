@@ -1,10 +1,8 @@
-
-    <%= form_with(model: [@artist, @song], local: true) do |f| %>
+<%= form_with(model: [@artist, @song], local: true) do |f| %>
     <%= f.label "Song Name" %><br>
     <%= f.text_field :name %><br>
     <%= f.label "Artists in Database" %><br>
     <%= f.collection_select :artist_id, Artist.all, :id, :name, { prompt: "Select Artist", selected: @song.artist ? @song.artist.id : nil } %><br>
-
     <%= f.label "If artist doesn't exist yet, create it here!" %>   
     <%= f.fields_for :artist, @song.build_artist do |artist_fields| %>
         <%= artist_fields.label "New Artist Name" %>
@@ -17,5 +15,10 @@
         <%= genre_fields.label "New Genre Name" %>
         <%= genre_fields.text_field :name %><br>
     <% end %>
+    <%= f.label "Year Released" %>
+    <%= f.text_field :year, maxlength: 4 %><br>
+    <%= f.label "Number of Vocal Parts" %>
+    <%= f.number_field :vocal_parts, in: 0..3, selected: @song.vocal_parts ? @song.vocal_parts : nil %><br>
+
     <%= f.submit %>
 <% end %>

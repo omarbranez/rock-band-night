@@ -1,4 +1,9 @@
 class UserSongsController < ApplicationController
+    
+    validates_presence_of :user_id
+    validates_presence_of :song_id
+    validates :rating, inclusion: { in: 1..5, message: "Rating must be between 1 and 5" }, numeralicality: { only_integer: true }
+        
     def create
         user_song = UserSong.create(user_song_params)
         # redirect_to user_path(user_song.user)
