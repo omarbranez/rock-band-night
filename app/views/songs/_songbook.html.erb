@@ -1,14 +1,10 @@
-<h1>Songs List</h1>
+<h1>Songs List, Sorted By Artist</h1>
 <table>
     <thead>
         <tr>
             <th>Title</th>
             <th>Artist</th>
             <th>Genre</th>
-            <% if current_user %>
-                <th>Owned?</th>
-                <th>Change Status</th>
-            <% end %>
         </tr>
     </thead>
     <tbody>
@@ -40,7 +36,7 @@
         <% end %>
     </tbody>
 </table>
-<%= paginate @songs, window: 4 %>
+<%= paginate @songs %>
 <% if current_user %>
     <p>Quick Add an Entire Game's Setlist!</p>
     <p><%= render_game_button("Rock Band 1", 1) unless game_already_in_collection?(1) %></p>

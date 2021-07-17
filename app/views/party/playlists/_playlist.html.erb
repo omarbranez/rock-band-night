@@ -1,0 +1,9 @@
+<% if @playlist %>
+    <% @playlist.songs.each do |song| %>
+        <p><%= song.position %> - <%= song.name %><p><br>
+    <% end %>
+<% else %>
+    <h2>Playlist is currently empty!</h2>
+<% end %>
+
+<%= link_to "Add Song to Playlist", party_guests_add_song_path %>

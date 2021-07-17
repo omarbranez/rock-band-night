@@ -1,0 +1,4 @@
+<h1>Party Mode Activity</h1>
+<% @users.each do |user| %>
+    <%= link_to "#{user.username}'s Stats", user_history_path(user) %>
+<% end %>
