@@ -16,7 +16,6 @@ class Song < ActiveRecord::Base
     accepts_nested_attributes_for :genre
 
     before_create :check_name_for_article, :set_song_source_and_availability, :get_xbox_link, :get_psn_link, :get_spotify_id
-    # before_update :get_xbox_link, :get_psn_link #:get_spotify_id
 
     def full_title
         if self.article != ""
@@ -123,37 +122,47 @@ class Song < ActiveRecord::Base
         m.user_agent_alias = 'Mac Safari'
         page = m.get("https://www.google.com")
         google_form = page.form('f') 
-        google_form.q = "xbox live en-us #{song.name} #{song.artist.name} -rocksmith -dance"
+        google_form.q = "microsoft.com/en-us/ \"#{self.name}\" \"#{song.artist.name}\" -rocksmith -\"dance central\""
         page = m.submit(google_form)
         pp = page.links_with :href => /microsoft.com\/en-us\/p/
-        song.xbox_link = pp.first.href[32..-1].gsub(/\&sa(.*)/, "")
-        song.save
+        if pp.first.href
+            self.xbox_link = pp.first.href[32..-1].gsub(/\&sa(.*)/, "")
+        else
+            self.xbox_link = "Scrape Error"
+        end
     end
 
     def get_psn_link
-        page = Mechanize.new.get("https://www.google.com")
+        m = Mechanize.new
+        m.user_agent_alias = 'Mac Safari'
+        page = m.get("https://www.google.com")
         google_form = page.form('f') 
-        google_form.q = "psn #{self.artist.name} #{self.name}"
-        page = Mechanize.new.submit(google_form)
-        self.psn_link = page.links[15].href[51..86]
-        # should i just copy the whole link, now that it's a string? # yup
+        google_form.q = "store.playstation.com/en-us \"#{self.name}\" \"#{self.artist.name}\" -rocksmith"
+        page = m.submit(google_form)
+        pp = page.links_with :href => /store.playstation.com\/en-us\/product/
+        if pp.first.href
+            self.psn_link = pp.first.href[36..-1].gsub(/\&sa(.*)/, "").gsub(/\%3(.*)/, "")
+        else
+            self.psn_link = "Scrape Error"
+        end
     end
 
-    def render_xbox_link
-        page = Mechanize.new.get("https://www.google.com")
-        google_form = page.form('f') 
-        google_form.q = "#{self.xbox_link}"
-        page = Mechanize.new.submit(google_form)
-        page.links[15].href[7..63]
-    end
+    # def render_xbox_link
+    #     if self.id > 2795
+    #     page = Mechanize.new.get("https://www.google.com")
+    #     google_form = page.form('f') 
+    #     google_form.q = "#{self.xbox_link}"
+    #     page = Mechanize.new.submit(google_form)
+    #     page.links[15].href[7..63]
+    # end
 
-    def render_psn_link
-        page = Mechanize.new.get("https://www.google.com")
-        google_form = page.form('f') 
-        google_form.q = "#{self.psn_link}"
-        page = Mechanize.new.submit(google_form)
-        page.links[15].href[7..86]
-    end
+    # def render_psn_link
+    #     page = Mechanize.new.get("https://www.google.com")
+    #     google_form = page.form('f') 
+    #     google_form.q = "#{self.psn_link}"
+    #     page = Mechanize.new.submit(google_form)
+    #     page.links[15].href[7..86]
+    # end # moved to song helpers
 
     def get_spotify_id
         RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])

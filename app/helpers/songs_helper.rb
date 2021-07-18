@@ -13,5 +13,21 @@ module SongsHelper
             link_to "Edit Song Details", edit_artist_song_path(@song.artist, @song)
         end
     end
+
+    def render_xbox_link
+        if self.id > 2795
+            link_to "Buy this song on Xbox Live Marketplace", "https://www.microsoft.com#{self.xbox_link}"
+        else
+            link_to "Buy this song on Xbox Live Marketplace", "rbdb/#{self.xbox_link}"
+        end
+    end
+
+    def render_psn_link
+        if self.id > 2795
+            link_to "Buy this song on Playstation Store", "https://www.microsoft.com#{self.psn_link}"
+        else
+            link_to "Buy this song on Playstation Store", "rbdb/#{self.psn_link}"
+        end
+    end
     
 end
