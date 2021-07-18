@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_16_231523) do
+ActiveRecord::Schema.define(version: 2021_07_17_222827) do
 
   create_table "artists", force: :cascade do |t|
     t.string "article"
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 2021_07_16_231523) do
     t.integer "availability"
     t.integer "source"
     t.string "spotify_id"
-    t.integer "psn_link"
-    t.integer "xbox_link"
+    t.string "psn_link"
+    t.string "xbox_link"
     t.integer "amazon_link"
     t.integer "itunes_link"
     t.integer "google_link"

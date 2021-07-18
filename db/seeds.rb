@@ -55,22 +55,6 @@
     #     Song.where(song_hash).first_or_create
     # end
 
-songs = Song.all
-songs.each do |song|
-    url = URI("https://api.spotify.com/v1/search?q=track:#{song.name.gsub(" ","+")}%20artist:#{song.artist.name.gsub(" ","+")}&type=track")
-    https = Net::HTTP.new(url.host, url.port)
-    https.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    request["Authorization"] = "Bearer lol"
-    response = https.request(request)
-    if JSON.parse(response.read_body)["tracks"]["items"].second
-        song.spotify_id = JSON.parse(response.read_body)["tracks"]["items"].second["external_urls"]["spotify"][31..-1]
-    elsif JSON.parse(response.read_body)["tracks"]["items"].first
-        song.spotify_id = JSON.parse(response.read_body)["tracks"]["items"].first["external_urls"]["spotify"][31..-1]
-    else
-        song.spotify_id = nil
-    end
-    song.save
-end
-
+        
+    
 
