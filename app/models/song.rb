@@ -9,19 +9,20 @@ class Song < ActiveRecord::Base
 
     validates_presence_of :name
     validates_presence_of :artist_id
-    # validates :year, presence: true,  inclusion: { in: 1955..Date.today.year, message: "Year must be between 1955 and the current year" }, numeralicality: { only_integer: true }
+    validates :year, presence: true,  inclusion: { in: 1955..Date.today.year, message: "Year must be between 1955 and the current year" }
     validates :vocal_parts, presence: true, inclusion: { in: 0..3, message: "Number of Vocal Parts must be between 0 and 3" }
 
     accepts_nested_attributes_for :artist
     accepts_nested_attributes_for :genre
 
-    before_create :check_name_for_article, :set_song_source_and_availability, :scrape_xbox_link, :scrape_psn_link
+    before_create :check_name_for_article, :set_song_source_and_availability, :get_xbox_link, :get_psn_link, :get_spotify_id
+    # before_update :get_xbox_link, :get_psn_link #:get_spotify_id
 
     def full_title
         if self.article != ""
             "#{self.article}" + " " + "#{self.name}"
         else
-            "#{self.name}"
+            self.name
         end
     end
 
@@ -117,22 +118,25 @@ class Song < ActiveRecord::Base
         self.availability = 4
     end
     
-    def scrape_xbox_link
-        page = Mechanize.new.get("https://www.google.com")
+    def get_xbox_link
+        m = Mechanize.new
+        m.user_agent_alias = 'Mac Safari'
+        page = m.get("https://www.google.com")
         google_form = page.form('f') 
-        google_form.q = "xbox live #{self.artist} #{self.name}"
-        page = Mechanize.new.submit(google_form)
-        self.xbox_link = page.links[15].href[52..63]
-        # should i just copy the whole link, now that it's a string?
+        google_form.q = "xbox live en-us #{song.name} #{song.artist.name} -rocksmith -dance"
+        page = m.submit(google_form)
+        pp = page.links_with :href => /microsoft.com\/en-us\/p/
+        song.xbox_link = pp.first.href[32..-1].gsub(/\&sa(.*)/, "")
+        song.save
     end
 
-    def scrape_psn_link
+    def get_psn_link
         page = Mechanize.new.get("https://www.google.com")
         google_form = page.form('f') 
-        google_form.q = "psn #{self.artist} #{self.name}"
+        google_form.q = "psn #{self.artist.name} #{self.name}"
         page = Mechanize.new.submit(google_form)
         self.psn_link = page.links[15].href[51..86]
-        # should i just copy the whole link, now that it's a string?
+        # should i just copy the whole link, now that it's a string? # yup
     end
 
     def render_xbox_link
@@ -154,11 +158,12 @@ class Song < ActiveRecord::Base
     def get_spotify_id
         RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
         tracks = RSpotify::Track.search("#{self.full_title}")
-        if tracks.first.artists.first.name == self.full_name
+        binding.pry
+        if tracks.first.artists.first.name == self.artist.full_name
             self.spotify_id = tracks.first.id
-        elsif tracks.second.artists.first.name == self.full_name
+        elsif tracks.second.artists.first.name == self.artist.full_name
             self.spotify_id = tracks.second.id
-        elsif tracks.third.artists.first.name == self.full_name
+        elsif tracks.third.artists.first.name == self.artist.full_name
             self.spotify_id = tracks.third.id
         else
             self.spotify_id = "Find It Yourself"

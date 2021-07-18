@@ -1,3 +1,7 @@
-<h1>Add a song</h1>
+<% if @artist %>
+    <h1>Add a Song by <%= @artist.full_name %></h1>
+<% else %>
+    <h1>Add a Song</h1>
+<% end %>
 
 <%= render "form" %>

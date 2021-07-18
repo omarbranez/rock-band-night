@@ -5,11 +5,11 @@ class SessionController < ApplicationController
     end
 
     def create
-        binding.pry
+        # binding.pry
         user = User.find_by(username: params[:username])
         if user.authenticate(params[:password])
             session[:user_id] = user.id
-            redirect_to user_path
+            redirect_to user_path(current_user)
         else
             redirect_to signin_path
         end

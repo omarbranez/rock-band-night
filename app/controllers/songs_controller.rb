@@ -11,7 +11,9 @@ class SongsController < ApplicationController
         else
             @songs = Song.order('LOWER(name)').page(params[:page])
         # case insensitive
-            @user_song = current_user.user_songs.build(user_id: current_user.id)
+            if current_user
+                @user_song = current_user.user_songs.build(user_id: current_user.id)
+            end
             session[:return_to] = request.referrer #keep track of what page they're on
         # if someone is logged in, initialize a new song for that user
         end
@@ -85,7 +87,7 @@ class SongsController < ApplicationController
     private
     
     def song_params
-        params.require(:song).permit(:name, :artist_id, :genre_id, :artist_attributes => [:name], :genre_attributes => [:name], :year, :vocal_parts, :duration)
+        params.require(:song).permit(:name, :artist_id, :genre_id, :year, :vocal_parts, :artist_attributes => [:name], :genre_attributes => [:name])
     end
 
 end

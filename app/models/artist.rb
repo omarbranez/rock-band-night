@@ -6,7 +6,11 @@ class Artist < ActiveRecord::Base
     before_create :check_name_for_article
 
     def full_name
-        "#{self.article}" + " " + "#{self.name}"
+        if self.article != ""
+            "#{self.article}" + " " + "#{self.name}"
+        else
+            self.name
+        end
     end
 
     def check_name_for_article # will refactor as abstract class, since song has the same
