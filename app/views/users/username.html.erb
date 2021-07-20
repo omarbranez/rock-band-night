@@ -3,7 +3,7 @@
 <p>Please enter a username for use on Rock Band Night</p>
 <%= form_for current_user do |f| %>
     <%= f.label :username %>
-    <%= f.text_field :username %>
+    <%= f.text_field :username, placeholder: "" %>
     <%= f.hidden_field :email %>
     <%= f.submit %>
 <% end %>

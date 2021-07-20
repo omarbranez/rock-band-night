@@ -30,15 +30,7 @@ class UsersController < ApplicationController
         redirect_to user_path(user.username)        
     end
 
-    # def add_song
-    #     song = Song.friendly.find(params[:id])
-    #     current_user.user_songs.create(song_id: song.id)
-    #     redirect_to songs_path
-    # end
-
     def toggle_party
-        # change party_enabled to default false
-
         current_user.toggle(:party_enabled).save
         if current_user.party_enabled == true 
             flash[:notice] = "You have entered Party Mode" 

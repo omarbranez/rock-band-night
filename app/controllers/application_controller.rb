@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
-    helper_method :current_user, :logged_in?, :owns_resource?, :redirect_if_not_logged_in, :message_if_not_admin, :message_if_not_logged_in, :authorized?
+    helper_method   :current_user, 
+                    :logged_in?, 
+                    :owns_resource?, 
+                    :redirect_if_not_logged_in, 
+                    :message_if_not_admin, 
+                    :message_if_not_logged_in, 
+                    :authorized? 
+                    :force_user_to_create_username
 
     private
 
@@ -41,6 +48,11 @@ class ApplicationController < ActionController::Base
     def authorized?
         redirect_to login_path unless logged_in?
     end
-
+    
+    def force_user_to_create_username
+        if current_user.email == current_user.username
+            redirect_to username_path(current_user)
+        end
+    end
     
 end
