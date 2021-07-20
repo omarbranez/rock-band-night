@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_17_222827) do
+ActiveRecord::Schema.define(version: 2021_07_20_004223) do
 
   create_table "artists", force: :cascade do |t|
     t.string "article"
@@ -106,7 +106,8 @@ ActiveRecord::Schema.define(version: 2021_07_17_222827) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
-    t.boolean "party_enabled"
+    t.boolean "party_enabled", default: false
+    t.string "email"
   end
 
 end

@@ -8,9 +8,11 @@ Rails.application.routes.draw do
     # saving these for after the project review since i don't want to use restful urls. those are dumb.
   end
   resources :songs, only: [:index, :new, :create]
-  resources :genres
+  resources :genres, only: [:index, :show]
   get '/users/new', to: 'users#new', as: 'new_user'
   get '/users', to: 'users#index', as: 'users'
+  get '/users/username', to: 'users#username', as: 'username'
+  patch '/users/:id', to: 'users#create_username'
   post '/users', to: 'users#create'
   get '/users/:username', to: 'users#show', as: 'user'
   get '/users/:username/edit', to: 'users#edit', as: 'edit_user'
@@ -20,9 +22,11 @@ Rails.application.routes.draw do
   # need to test #match to just use one action
   patch '/usersongs', to: 'user_songs#rate_song', as: 'rate_song'
   delete '/usersongs', to: 'user_songs#destroy', as: 'remove_song'
-  get '/signin', to: 'session#new', as: 'signin'
-  post '/session', to: 'session#create', as: 'session'
-  delete '/session', to: 'session#destroy', as: 'logout'
+  get '/signin', to: 'sessions#new', as: 'signin'
+  post '/sessions', to: 'sessions#create', as: 'sessions'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
+
+  get '/auth/:provider/callback', to: 'sessions#create'
   namespace :party do
     root 'static#party'
     get '/:username/playlist', to: 'playlists#index', as: 'playlist'

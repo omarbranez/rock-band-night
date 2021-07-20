@@ -25,7 +25,6 @@ class SongsController < ApplicationController
         if current_user.songs.exists?(@song.id)
             @user_song = current_user.user_songs.find_by(user_id: current_user.id, song_id: @song.id)
         end
-        # will have to account for non-logged-in people
     end
 
     def new

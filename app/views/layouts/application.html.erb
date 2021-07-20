@@ -5,7 +5,8 @@
 		<title>Rock Band Night</title>
 		<%= csrf_meta_tags %>
     	<%= csp_meta_tag %>
-		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => "reload" %>
+		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<script src="https://unpkg.com/htmx.org@1.4.1"></script>
@@ -49,10 +50,13 @@
 										Main Menu
 									</button>
 									<div id="myDropdown" class="dropdown-content">
-									    <%= link_to "Sign Up", new_user_path if !current_user %>
-    	    							<%= link_to "Sign In", signin_path if !current_user %>
-        								<%= link_to "My Profile", user_path(current_user.username) if current_user %>
-        								<%= link_to "Log Out", logout_path, method: :post if current_user %>
+									    <% if !current_user %>
+											<%= link_to "Sign Up", new_user_path %>
+    	    								<%= link_to "Sign In", signin_path %>
+										<% else %>
+        									<%= link_to "My Profile", user_path(current_user.username) %>
+        									<%= link_to "Log Out", logout_path, method: :delete %>
+										<% end %>
 									</div>
 								</div>
 							</li>
@@ -76,7 +80,7 @@
 								For Smoother Rocking Sessions!</h2>
 							</header>
 							<ul class="actions">
-								<li><a href="#" class="button">Get this party started!a></li>
+								<li><a href="/signin" class="button">Get this party started!</li>
 							</ul>
 					</section>
 					<% end %>

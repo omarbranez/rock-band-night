@@ -1,20 +1,24 @@
 class UserSongsController < ApplicationController
-    
+    include ActiveModel::Validations    
     validates_presence_of :user_id
     validates_presence_of :song_id
-    validates :rating, inclusion: { in: 1..5, message: "Rating must be between 1 and 5" }, numeralicality: { only_integer: true }
+    validates :rating, inclusion: { in: 1..5, message: "Rating must be between 1 and 5" }
         
     def create
         user_song = UserSong.create(user_song_params)
         # redirect_to user_path(user_song.user)
         flash[:notice] = "Successfully added #{last_song_added} to collection!"
-        redirect_to session.delete(:return_to)
+        if session[:return_to] 
+            redirect_to session.delete(:return_to)
+        else
+            redirect_to songs_path
+        end
     end
 
     def destroy
         user_song = UserSong.find_by(user_song_params)
         if current_user.id == user_song.user_id
-            user_song.delete
+            user_song.destroy
             redirect_to songs_path, flash: { message: "Deleted #{Song.find(user_song.song_id).full_title} from collection"}
         else
             redirect_to songs_path, flash: { message: "You cannot delete another user's songs" }

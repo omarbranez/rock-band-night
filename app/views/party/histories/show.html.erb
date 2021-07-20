@@ -1,0 +1,6 @@
+<% if current_user == @user.id %>
+    <h1>Your Party Mode History</h1>
+<% else %>
+    <h1><%= @user.username %>'s Party Mode History</h1>
+<% end %>
+
