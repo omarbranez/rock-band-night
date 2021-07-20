@@ -5,26 +5,26 @@ class UserSong < ActiveRecord::Base
     validates_inclusion_of :rating, :in => 1..5, allow_nil: true
 
 
-    def average_rating
-        if somebody_owns_song && song_has_ratings
-            UserSong.where(song_id: self.song_id).average(:rating).to_f
+    def self.average_rating
+        if somebody_owns_song && has_ratings?
+            self.average(:rating).to_f
         else
             "There are no ratings for this song yet."
         end
     end
 
-    def count_ratings
+    def self.count_ratings
         if somebody_owns_song
-            UserSong.where(song_id: self.song_id).count(:rating)
+            self.count(:rating)
         end
     end
 
-    def somebody_owns_song
-        UserSong.where(song_id: self.song_id).exists?
+    def self.somebody_owns_song
+        self.exists?
     end
-
-    def song_has_ratings
-        !UserSong.where(song_id: self.song_id).average(:rating).nil?
+    
+    def self.has_ratings?
+        !self.average(:rating).nil?
     end
 
     def add_songs_from_game(source_params)

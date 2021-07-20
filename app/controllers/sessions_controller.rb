@@ -8,10 +8,11 @@ class SessionsController < ApplicationController
         if params[:provider]
             user = User.create_by_omniauth(auth)
             session[:user_id] = user.id
-            flash[:notice] = "#{user.email} successfully logged in"
-            if user.username == user.email 
+            if user.username == user.email # probably not needed, now that it happens after create
+                flash[:notice] = "#{user.email} successfully logged in"
                 redirect_to username_path(current_user)
             else
+                flash[:notice] = "#{user.username} successfully logged in"
                 redirect_to user_path(current_user.username)
             end
         else
@@ -31,13 +32,6 @@ class SessionsController < ApplicationController
         flash[:notice] = "You have been logged out"
         redirect_to root_path
     end
-
-    # def omniauth
-    #     user = User.create_by_omniauth(auth)
-    #     session[:user_id] = user.id
-    #     flash[:notice] = "#{user.username} successfully logged in"
-    #     redirect_to user_path
-    # end
 
     private 
 

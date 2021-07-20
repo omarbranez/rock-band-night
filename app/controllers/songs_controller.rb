@@ -10,7 +10,6 @@ class SongsController < ApplicationController
             end
         else
             @songs = Song.order('LOWER(name)').page(params[:page])
-        # case insensitive
             if current_user
                 @user_song = current_user.user_songs.build(user_id: current_user.id)
             end
@@ -21,10 +20,7 @@ class SongsController < ApplicationController
 
     def show
         @song = Song.friendly.find(params[:id])
-        # @song = Song.friendly.find(params[:slug ])
-        if current_user.songs.exists?(@song.id)
-            @user_song = current_user.user_songs.find_by(user_id: current_user.id, song_id: @song.id)
-        end
+        @user_song = UserSong.where(song_id: @song.id)
     end
 
     def new

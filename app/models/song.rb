@@ -49,10 +49,8 @@ class Song < ActiveRecord::Base
         end
     end
 
-    def own_rating_exists?(user)
-        !UserSong.where(song_id: self.id).pluck(:rating).nil?
-        # !current_user.user_songs.where(song_id: self.id).rating.nil?
-        # does this do anything anymore?
+    def has_ratings?
+        !UserSong.where(song_id: self.id).average(:rating).nil?
     end
 
     def primary_source

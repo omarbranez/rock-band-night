@@ -1,4 +1,5 @@
 <%= form_with(model: [@artist, @song], local: true) do |f| %>
+    <%= render partial: 'layouts/errors', locals: { object: @song } %>
     <%= f.label "Song Name" %><br>
     <%= f.text_field :name %><br>
     <%= f.label "Artists in Database" %><br>
