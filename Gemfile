@@ -72,5 +72,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'kaminari'
 gem 'rspotify'
+gem 'turbolinks_render'
 
 # gem 'font-awesome-less'

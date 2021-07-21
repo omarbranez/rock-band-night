@@ -9,7 +9,7 @@ class Song < ActiveRecord::Base
 
     validates_presence_of :name
     validates_presence_of :artist_id
-    validates :year, presence: true,  inclusion: { in: 1955..Date.today.year, message: "Year must be between 1955 and the current year" }
+    validates :year, numericality: { greater_than: 1954, less_than_or_equal_to: Proc.new {|record| Date.current.year } }
     validates :vocal_parts, presence: true, inclusion: { in: 0..3, message: "Number of Vocal Parts must be between 0 and 3" }
 
     accepts_nested_attributes_for :artist
@@ -95,8 +95,6 @@ class Song < ActiveRecord::Base
         self.artist = Artist.find_or_create_by(name: name)
 
     end
-    
-    # private 
 
     def check_name_for_article
         if self.name[0..2] == "The"

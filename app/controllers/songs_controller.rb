@@ -46,7 +46,6 @@ class SongsController < ApplicationController
             flash[:notice] = "#{song.full_title} has been successfully added to database!"
             redirect_to songs_path
         else
-            flash[:notice] = "An error occurred during song creation"
             redirect_to new_song_path
         end
     end
@@ -57,25 +56,12 @@ class SongsController < ApplicationController
     end
 
     def update
-        song = Song.friendly.find(params[:id])
-
-        if params[:song][:artist_id].empty?
-            song.artist = Artist.find_or_create_by(name: params[:song][:artist_attributes][:name])
+        @song = Song.friendly.find(params[:id])
+        if @song.update(update_song_params)
+            flash[:notice] = "#{@song.full_title} has been successfully updated"
+            redirect_to artist_song_path(@song.artist, @song)
         else
-            song.artist = Artist.find(params[:song][:artist_id])
-        end
-        if params[:song][:genre_id].empty?
-            song.genre = Genre.find_or_create_by(name: params[:song][:genre_attributes][:name])
-        else
-            song.genre = Genre.find(params[:song][:genre_id])
-        end
-        if song.valid?
-            song.save
-            flash[:notice] = "#{song.full_title} has been successfully updated"
-            redirect_to artist_song_path
-        else
-            flash[:notice] = "An error occurred during song modification"
-            redirect_to edit_artist_song_path
+            render 'songs/edit'
         end
     end
 
@@ -85,4 +71,10 @@ class SongsController < ApplicationController
         params.require(:song).permit(:name, :artist_id, :genre_id, :year, :vocal_parts, :artist_attributes => [:name], :genre_attributes => [:name])
     end
 
+    def update_song_params
+        params.require(:song).permit(:name, :artist_id, :genre_id, :year, :vocal_parts)
+    end
+
+
+    
 end

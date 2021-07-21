@@ -114,7 +114,11 @@ input, select, textarea {
         border: none;
     }
 
-
+	.field_with_errors {
+		padding: 2px;
+		background-color: red;
+		display: table;
+	  }
 /* Basic */
 
 	@-ms-viewport {
