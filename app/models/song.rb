@@ -16,6 +16,8 @@ class Song < ActiveRecord::Base
     accepts_nested_attributes_for :genre
 
     before_create :check_name_for_article, :set_song_source_and_availability, :get_xbox_link, :get_psn_link, :get_spotify_id
+    scope :owned, ->(user) { left_outer_joins(:users).where(user_songs: { user_id: user.id } ) }
+    scope :unowned, ->(user) { where.not(id: owned(user)) }
 
     def full_title
         if self.article != ""
@@ -93,7 +95,6 @@ class Song < ActiveRecord::Base
     def artist_name=(name)
         name.check_name_for_article
         self.artist = Artist.find_or_create_by(name: name)
-
     end
 
     def check_name_for_article

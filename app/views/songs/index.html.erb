@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         <%= page_entries_info @songs %>
-        <%= paginate @songs %>
+        <%= paginate @songs %> <%= link_to "Show only owned songs", :controller => "songs", :action => "index", :view => "owned" %> <%= link_to "Show only unowned songs", :controller => "songs", :action => "index", :view => "unowned" %>
         <% @songs.each do |song| %>
             <tr>
                 <td><%= link_to song.full_title, artist_song_path(song.artist, song) %></td>

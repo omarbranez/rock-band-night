@@ -3,7 +3,7 @@ class UserSong < ActiveRecord::Base
     belongs_to :song
     validates_uniqueness_of :user_id, :scope => [:song_id] # avoid duplicates of song ownership
     validates_inclusion_of :rating, :in => 1..5, allow_nil: true
-
+    scope :owned, -> { where(user_id: current_user.id) }
 
     def self.average_rating
         if somebody_owns_song && has_ratings?
@@ -22,7 +22,7 @@ class UserSong < ActiveRecord::Base
     def self.somebody_owns_song
         self.exists?
     end
-    
+
     def self.has_ratings?
         !self.average(:rating).nil?
     end

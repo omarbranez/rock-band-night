@@ -1,5 +1,6 @@
 class SongsController < ApplicationController
     
+    
     def index
         if params[:artist_id]
             @artist = Artist.find_by(id: params[:artist_id])
@@ -8,14 +9,26 @@ class SongsController < ApplicationController
             else
                 @songs = @artist.songs
             end
+        end
+        # binding.pry
+        if params[:view]
+            # binding.pry
+            if params[:view] == "owned"
+                @songs = Song.owned(current_user).order('LOWER(name)').page(params[:page])
+            else 
+                if params[:view] == "unowned"
+                    @songs = Song.unowned(current_user).order('LOWER(name)').page(params[:page])
+                end
+                # binding.pry
+            end
         else
             @songs = Song.order('LOWER(name)').page(params[:page])
-            if current_user
-                @user_song = current_user.user_songs.build(user_id: current_user.id)
-            end
-            session[:return_to] = request.referrer #keep track of what page they're on
-        # if someone is logged in, initialize a new song for that user
         end
+        if current_user
+            @user_song = current_user.user_songs.build(user_id: current_user.id)
+        end
+        session[:return_to] = request.referrer #keep track of what page they're on
+        # if someone is logged in, initialize a new song for that user
     end
 
     def show
@@ -75,6 +88,7 @@ class SongsController < ApplicationController
         params.require(:song).permit(:name, :artist_id, :genre_id, :year, :vocal_parts)
     end
 
-
-    
+    def view_params
+        params.permit(:view)
+    end
 end

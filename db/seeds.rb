@@ -54,40 +54,7 @@
     #     song_hash[:google_link] = song["links"]["google"]
     #     Song.where(song_hash).first_or_create
     # end
-    Song.connection
-    # songs = Song.all[2824..2884]
-    songs = Song.all[2872..2884]
-    songs.each do |song|
-        m = Mechanize.new
-        m.user_agent_alias = 'Mac Safari'
-        page = m.get("https://www.google.com")
-        google_form = page.form('f') 
-        google_form.q = "store.playstation.com/en-us \"#{song.name}\" \"#{song.artist.name}\" -rocksmith"
-        page = m.submit(google_form)
-        pp = page.links_with :href => /store.playstation.com\/en-us\/product/
-        if pp.first.href
-            song.psn_link = pp.first.href[36..-1].gsub(/\&sa(.*)/, "").gsub(/\%3(.*)/, "")
-        else
-            song.psn_link = "Scrape Error"
-        end
-        song.save
-    end
-    # pp.first.href[32..-1].gsub(/\&sa(.*)/, "")
-        # song.xbox_link = page.links[17].href[32..-1].gsub(/\&sa(.*)/, "")
-        # should i just copy the whole link, now that it's a string?
 
-    # Song.connection
-    # # songs = Song.all[2796..2884]
-    # songs = Song.all[2824..2884]
-    # songs.each do |song|
-    #     page = Mechanize.new.get("https://www.microsoft.com/en-us/search")
 
-    #     microsoft_form = page.form('searchForm') 
-    #     microsoft_form.q = "#{song.name} #{song.artist.name}"
-    #     binding.pry
-    #     page = Mechanize.new.submit(microsoft_form)
-    #     song.xbox_link = page.links[95].href
-    #     song.save
-    # end
     
 
