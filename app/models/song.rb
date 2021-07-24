@@ -180,5 +180,5 @@ class Song < ActiveRecord::Base
 
     def self.search(search)  
         where("lower(artists.name) LIKE :search OR lower(songs.name) LIKE :search", search: "%#{search.downcase}%").distinct   
-     end
+    end
 end

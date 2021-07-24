@@ -12,15 +12,6 @@
 		<script src="https://unpkg.com/htmx.org@1.4.1"></script>
 		<script src="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
-		<%= form_tag(search_page_path, :method => "get",   
-    		class: 'navbar-form navbar-left') do %>  
-  				<div class="input-group">  
-    				<%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>  
-    				<div class="input-group-btn">  
-      					<%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
-   					 </div>  
-  				</div>  
-			<% end %>
 
 	</head>
 	<body class="homepage is-preload">
@@ -68,9 +59,17 @@
 									</div>
 								</div>
 							</li>
-							<li><a href="left-sidebar.html">Left Sidebar</a></li>
+							<li><%= link_to "Songs", songs_path %></li>
 							<li class="break"><a href="right-sidebar.html">Right Sidebar</a></li>
 							<li><a href="no-sidebar.html">No Sidebar</a></li>
+							<%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-left') do %>  
+  								<div class="input-group">  
+    								<%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>  
+    								<div class="input-group-btn">  
+      									<%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
+   					 				</div>  
+  								</div>  
+							<% end %>
 						</ul>
 					</nav>
 				</div>
@@ -87,9 +86,9 @@
 								<br />
 								For Smoother Rocking Sessions!</h2>
 							</header>
-							<ul class="actions">
-								<li><a href="/signin" class="button">Get this party started!</li>
-							</ul>
+							
+								<a href="/signin" class="button">Get this party started!</a>
+						
 					</section>
 					<% end %>
 					<%= yield %>

@@ -1,6 +1,5 @@
 class SongsController < ApplicationController
     
-    
     def index
         if params[:artist_id]
             @artist = Artist.find_by(id: params[:artist_id])
@@ -10,16 +9,13 @@ class SongsController < ApplicationController
                 @songs = @artist.songs
             end
         end
-        # binding.pry
-        if params[:view]
-            # binding.pry
+        if params[:view]        
             if params[:view] == "owned"
                 @songs = Song.owned(current_user).order('LOWER(name)').page(params[:page])
             else 
                 if params[:view] == "unowned"
                     @songs = Song.unowned(current_user).order('LOWER(name)').page(params[:page])
                 end
-                # binding.pry
             end
         else
             @songs = Song.order('LOWER(name)').page(params[:page])
