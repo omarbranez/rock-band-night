@@ -18,6 +18,8 @@ class Song < ActiveRecord::Base
     before_create :check_name_for_article, :set_song_source_and_availability, :get_xbox_link, :get_psn_link, :get_spotify_id
     scope :owned, ->(user) { left_outer_joins(:users).where(user_songs: { user_id: user.id } ) }
     scope :unowned, ->(user) { where.not(id: owned(user)) }
+    # scope :search ->(search) { where("lower(artists.name) LIKE :search OR lower(songs.name) LIKE :search", search: "%#{search.downcase}%").distinct   
+
 
     def full_title
         if self.article != ""
@@ -175,4 +177,8 @@ class Song < ActiveRecord::Base
             self.spotify_id = "Find It Yourself"
         end
     end
+
+    def self.search(search)  
+        where("lower(artists.name) LIKE :search OR lower(songs.name) LIKE :search", search: "%#{search.downcase}%").distinct   
+     end
 end

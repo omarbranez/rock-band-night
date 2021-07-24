@@ -12,7 +12,15 @@
 		<script src="https://unpkg.com/htmx.org@1.4.1"></script>
 		<script src="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
-		
+		<%= form_tag(search_page_path, :method => "get",   
+    		class: 'navbar-form navbar-left') do %>  
+  				<div class="input-group">  
+    				<%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>  
+    				<div class="input-group-btn">  
+      					<%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
+   					 </div>  
+  				</div>  
+			<% end %>
 
 	</head>
 	<body class="homepage is-preload">

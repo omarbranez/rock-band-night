@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/users/:username', to: 'users#show', as: 'user'
   get '/users/:username/edit', to: 'users#edit', as: 'edit_user'
   get '/users/:username/toggle', to: 'users#toggle_party', as: 'toggle_party'
+  get '/search', to: 'search#show', as: 'search_page'
   post '/usersongs', to: 'user_songs#create', as: 'add_song'
   post '/usersongs/game', to: 'user_songs#add_game', as: 'add_game' 
   # need to test #match to just use one action

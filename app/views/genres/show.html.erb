@@ -2,6 +2,6 @@
 <p>The following songs belong to this genre:</p>
 <% @genre.songs.each do |song| %>
     <ul>
-        <li><%= link_to song.full_title, song %></li>
+        <li><%= link_to song.full_title, artist_song_path(song.artist, song) %></li>
     </ul>
 <% end %>
