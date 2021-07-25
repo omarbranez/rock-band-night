@@ -54,6 +54,7 @@
     	    								<%= link_to "Sign In", signin_path %>
 										<% else %>
         									<%= link_to "My Profile", user_path(current_user.username) %>
+											<%= link_to "New Song", new_song_path %>
         									<%= link_to "Log Out", logout_path, method: :delete %>
 										<% end %>
 									</div>

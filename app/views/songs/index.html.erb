@@ -2,9 +2,9 @@
 <table>
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Genre</th>
+            <th><%= link_to "Title", :sort => "name" %></th>
+            <th><%= link_to "Artist", :sort => "artist" %></th>
+            <th><%= link_to "Genre", :sort => "genre" %></th>
             <% if current_user %>
                 <th>Owned?</th>
                 <th>Change Status</th>
@@ -13,7 +13,11 @@
     </thead>
     <tbody>
         <%= page_entries_info @songs %>
-        <%= paginate @songs %> <%= link_to "Show only owned songs", :controller => "songs", :action => "index", :view => "owned" %> <%= link_to "Show only unowned songs", :controller => "songs", :action => "index", :view => "unowned" %>
+        <%= paginate @songs %> 
+        <div class="sort-options"> 
+            <%= link_to "Show only owned songs", :controller => "songs", :action => "index", :view => "owned" %> |
+            <%= link_to "Show only unowned songs", :controller => "songs", :action => "index", :view => "unowned" %>
+        </div>
         <% @songs.each do |song| %>
             <tr>
                 <td><%= link_to song.full_title, artist_song_path(song.artist, song) %></td>

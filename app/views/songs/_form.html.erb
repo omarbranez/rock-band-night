@@ -1,11 +1,10 @@
-<%= render 'layouts/errors', object: @song %>
+    <%= render 'layouts/errors', object: @song %>
 
-<%= form_for [@song.artist, @song] do |f| %>
     <%= f.label "Song Name" %><br>
     <%= f.text_field :name %><br>
     <%= f.label "Artists in Database" %><br>
     <%= f.collection_select :artist_id, Artist.all, :id, :name, { prompt: "Select Artist", selected: @song.artist ? @song.artist.id : nil } %><br>
-    <% unless current_page?(edit_artist_song_path) %>
+    <% if current_page?(new_song_path) %>
         <%= f.label "If artist doesn't exist yet, create it here!" %>   
         <%= f.fields_for :artist, @song.build_artist do |artist_fields| %>
             <%= artist_fields.label "New Artist Name" %>
@@ -14,17 +13,9 @@
     <% end %>
     <%= f.label "Genres in Database" %><br>
     <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select Genre", selected: @song.genre ? @song.genre.id : nil } %><br>
-    <% unless current_page?(edit_artist_song_path) %>
-        <%= f.label "If genre doesn't exist yet, create it here!" %>
-        <%= f.fields_for :genre, @song.build_genre do |genre_fields| %>
-            <%= genre_fields.label "New Genre Name" %>
-            <%= genre_fields.text_field :name %><br>
-        <% end %>
-    <% end %>
     <%= f.label "Year Released" %>
     <%= f.text_field :year, maxlength: 4 %><br>
     <%= f.label "Number of Vocal Parts" %>
     <%= f.number_field :vocal_parts, in: 0..3, selected: @song.vocal_parts ? @song.vocal_parts : nil %><br>
 
     <%= f.submit %>
-<% end %>

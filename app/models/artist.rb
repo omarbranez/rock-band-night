@@ -3,7 +3,10 @@ class Artist < ActiveRecord::Base
     friendly_id :name, use: :slugged
     has_many :songs
 
+    validates_presence_of :name
     before_create :check_name_for_article
+
+    # scope :artist_sort, -> { order("name ASC") }
 
     def full_name
         if self.article != ""

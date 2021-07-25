@@ -1,2 +1,5 @@
+<%= render 'layouts/errors', object: @song %>
 <h1>Edit Song Details</h1>
-<%= render partial: "form", locals: { artist: @song.artist, song: @song } %>
+<%= form_for [@song.artist, @song] do |f| %>
+    <%= render 'form', f: f %>
+<% end %>

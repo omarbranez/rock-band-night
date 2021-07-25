@@ -10,8 +10,13 @@ module SongsHelper
 
     def edit_button_for_admin
         if current_user == User.find(1)
-            content_tag(:p, "lolwut") 
             link_to "Edit Song Details", edit_artist_song_path(@song.artist, @song)
+        end
+    end
+
+    def new_button_for_admin
+        if current_user == User.find(1)
+            link_to "Create New Song", new_artist_song_path(@artist, @artist.songs.build)
         end
     end
 

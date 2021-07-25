@@ -13,14 +13,14 @@ class Song < ActiveRecord::Base
     validates :vocal_parts, presence: true, inclusion: { in: 0..3, message: "Number of Vocal Parts must be between 0 and 3" }
 
     accepts_nested_attributes_for :artist
-    accepts_nested_attributes_for :genre
+    # accepts_nested_attributes_for :genre
 
     before_create :check_name_for_article, :set_song_source_and_availability, :get_xbox_link, :get_psn_link, :get_spotify_id
     scope :owned, ->(user) { left_outer_joins(:users).where(user_songs: { user_id: user.id } ) }
     scope :unowned, ->(user) { where.not(id: owned(user)) }
-    # scope :search ->(search) { where("lower(artists.name) LIKE :search OR lower(songs.name) LIKE :search", search: "%#{search.downcase}%").distinct   
-
-
+    # scope :sorted, ->(column) { joins(:"#{column}").order("#{column.pluralize}.name") }
+    # @songs = Song.joins(:"#{params[:sort]}").order("#{params[:sort]}s.name").page(params[:page])
+    
     def full_title
         if self.article != ""
             "#{self.article}" + " " + "#{self.name}"
@@ -121,10 +121,10 @@ class Song < ActiveRecord::Base
         m.user_agent_alias = 'Mac Safari'
         page = m.get("https://www.google.com")
         google_form = page.form('f') 
-        google_form.q = "microsoft.com/en-us/ \"#{self.name}\" \"#{song.artist.name}\" -rocksmith -\"dance central\""
+        google_form.q = "microsoft.com/en-us/ \"#{self.name}\" \"#{self.artist.name}\" -rocksmith -\"dance central\""
         page = m.submit(google_form)
         pp = page.links_with :href => /microsoft.com\/en-us\/p/
-        if pp.first.href
+        if pp.first
             self.xbox_link = pp.first.href[32..-1].gsub(/\&sa(.*)/, "")
         else
             self.xbox_link = "Scrape Error"
@@ -139,7 +139,7 @@ class Song < ActiveRecord::Base
         google_form.q = "store.playstation.com/en-us \"#{self.name}\" \"#{self.artist.name}\" -rocksmith"
         page = m.submit(google_form)
         pp = page.links_with :href => /store.playstation.com\/en-us\/product/
-        if pp.first.href
+        if pp.first
             self.psn_link = pp.first.href[36..-1].gsub(/\&sa(.*)/, "").gsub(/\%3(.*)/, "")
         else
             self.psn_link = "Scrape Error"
@@ -166,7 +166,6 @@ class Song < ActiveRecord::Base
     def get_spotify_id
         RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
         tracks = RSpotify::Track.search("#{self.full_title}")
-        binding.pry
         if tracks.first.artists.first.name == self.artist.full_name
             self.spotify_id = tracks.first.id
         elsif tracks.second.artists.first.name == self.artist.full_name
@@ -181,4 +180,5 @@ class Song < ActiveRecord::Base
     def self.search(search)  
         where("lower(artists.name) LIKE :search OR lower(songs.name) LIKE :search", search: "%#{search.downcase}%").distinct   
     end
+    
 end

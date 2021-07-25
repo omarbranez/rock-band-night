@@ -72,21 +72,31 @@ input, select, textarea {
 	-ms-appearance: none;
 	appearance: none;
 }
-
+.sort-options {
+	/* background: #fff; */
+	border-color: rgba(255, 255, 255, 0);
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 0.8 em;
+	text-align: center;
+	margin: auto;
+	float: none;
+}
 .pagination a, .pagination span.current, .pagination span.gap {
-    float: left;
+    /* float: none; */
     padding: 0 14px;
     line-height: 38px;
     text-decoration: none;
     background-color: white;
-    border: 1px solid #DDD;
+    border: 1px solid rgb(0, 0, 0);
     border-left-width: 0;
 	font-weight: bold;
 	color: rgb(0,0,0);
 }
 
 .pagination {
-    border-left: 1px solid #ddd;
+    /* border-left: 1px solid #ddd; */
+	text-align: center;
 	}
     .first {
         padding : 0;
