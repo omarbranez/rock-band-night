@@ -61,14 +61,13 @@
 								</div>
 							</li>
 							<li><%= link_to "Songs", songs_path %></li>
-							<li class="break"><a href="right-sidebar.html">Right Sidebar</a></li>
-							<li><a href="no-sidebar.html">No Sidebar</a></li>
+							<li class="break"><%= link_to "Artists", artists_path %></li>
+							<li><%= link_to "Party Mode", toggle_party_path(current_user) %></li>
 							<%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-left') do %>  
-  								<div class="input-group">  
-    								<%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>  
-    								<div class="input-group-btn">  
-      									<%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
-   					 				</div>  
+  								<div class="input-group" style="display:einline;">  
+    								<%= search_field_tag :search, params[:search], placeholder: "Search Songs", class: "form-control" %>  
+    								<input type='submit' name='Search'>
+						
   								</div>  
 							<% end %>
 						</ul>
