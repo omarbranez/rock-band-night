@@ -2,9 +2,9 @@
 <table>
     <thead>
         <tr>
-            <th><%= link_to "Title", :sort => "name" %></th>
-            <th><%= link_to "Artist", :sort => "artist" %></th>
-            <th><%= link_to "Genre", :sort => "genre" %></th>
+            <th><%= link_to "Title", :sort => "name", class: "button" %></th>
+            <th><%= link_to "Artist", :sort => "artist", class: "button" %></th>
+            <th><%= link_to "Genre", :sort => "genre", class: "button" %></th>
             <% if current_user %>
                 <th>Owned?</th>
                 <th>Change Status</th>

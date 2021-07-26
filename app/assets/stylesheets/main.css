@@ -14,7 +14,8 @@ code, del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var, b,
 u, i, center, dl, dt, dd, ol, ul, li, fieldset,
 form, label, legend, table, caption, tbody,
-tfoot, thead, tr, th, td, article, aside,
+tfoot, td, article, aside,
+/* thead, tr, th */
 canvas, details, embed, figure, figcaption,
 footer, header, hgroup, menu, nav, output, ruby,
 section, summary, time, mark, audio, video {
@@ -51,6 +52,21 @@ blockquote, q {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+th a{
+	-moz-transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+		-webkit-transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+		-ms-transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+		transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+		display: inline-block;
+		color: rgb(255, 255, 255);
+		background: none;
+		text-decoration: none;
+		border: solid 1px #c2c7cc;
+		border-radius: 0.5em;
+		padding: 0.2em 2em 0.2em 2em;
+		cursor: pointer;
+		outline: 0;
 }
 
 body {
@@ -174,7 +190,7 @@ input, select, textarea {
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 300;
-		color: #52575c;
+		color: #ffffff;
 	}
 
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -209,7 +225,7 @@ input, select, textarea {
 
 	strong, b {
 		font-weight: 400;
-		color: #42474c;
+		color: #ffffff;
 	}
 
 	em, i {
@@ -2059,7 +2075,8 @@ input, select, textarea {
 	input[type="submit"],
 	input[type="reset"],
 	button,
-	.button {
+	.button
+	#button {
 		-moz-transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 		-webkit-transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 		-ms-transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
@@ -2216,7 +2233,7 @@ input, select, textarea {
 	}
 
 	.homepage #header-wrapper {
-		padding: 10em 0 6em 0;
+		padding: 10em 0 0em 0;
 		background-size: 128px 128px, 100% 100%, auto;
 	}
 
@@ -2227,7 +2244,7 @@ input, select, textarea {
 		background-position: top left, center center;
 		color: #fff;
 		text-align: center;
-		padding: 6em 0 6em 0;
+		padding: 3em 0 em 0;
 	}
 
 	#footer-wrapper {
@@ -2235,8 +2252,9 @@ input, select, textarea {
 		position: relative;
 		border-top: solid 1px #c2c7cc;
 		padding: 6em 0 6em 0;
-		background-image: url("images/overlay.png"), url("images/footer.svg");
+		/* background-image: url("images/overlay.png"), url("images/footer.svg"); */
 		background-size: 128px 128px,				100% 100%;
+		color:rgb(255, 255, 255);
 	}
 
 /* Header */
@@ -2489,6 +2507,7 @@ input, select, textarea {
 	#footer {
 		position: relative;
 		z-index: 1;
+		color:rgb(255, 255, 255);
 	}
 
 		#footer header.major {
@@ -2503,8 +2522,8 @@ input, select, textarea {
 		text-align: center;
 		border-top: solid 1px #d2d7dc;
 		color: #a2a7ac;
-		padding-top: 4em;
-		margin-top: 6em;
+		padding-top: 1em;
+		margin-top: 1em;
 	}
 
 /* Normal */
@@ -2586,7 +2605,7 @@ input, select, textarea {
 			}
 
 			#footer-wrapper {
-				padding: 4em 2em 4em 2em;
+				padding: 0em 0em 0em em;
 			}
 
 		/* Header */

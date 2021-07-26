@@ -62,13 +62,16 @@
 							</li>
 							<li><%= link_to "Songs", songs_path %></li>
 							<li class="break"><%= link_to "Artists", artists_path %></li>
-							<li><%= link_to "Party Mode", toggle_party_path(current_user) %></li>
+							<% if current_user %>
+								<li><%= link_to "Party Mode", toggle_party_path(current_user.username) %></li>
+							<% else %>
+								<li>Party Mode Not Available</li>
+							<% end %>
 							<%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-left') do %>  
   								<div class="input-group" style="display:einline;">  
     								<%= search_field_tag :search, params[:search], placeholder: "Search Songs", class: "form-control" %>  
     								<input type='submit' name='Search'>
-						
-  								</div>  
+								</div>  
 							<% end %>
 						</ul>
 					</nav>
