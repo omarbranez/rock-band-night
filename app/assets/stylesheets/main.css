@@ -146,6 +146,63 @@ input, select, textarea {
 		background-color: red;
 		display: table;
 	  }
+
+.login-form {
+		width: 385px;
+		margin: 30px auto;
+		color:rgb(0,0,0);
+	}
+    .login-form form {        
+    	margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+    .form-control, .login-btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+    .input-group-addon .fa {
+        font-size: 18px;
+    }
+    .login-btn {
+        font-size: 24px;
+		color: rgb(0, 0, 0);
+    }
+	.social-btn .btn {
+		border: none;
+        margin: 10px 3px 0;
+        opacity: 1;
+	}
+    .social-btn .btn:hover {
+        opacity: 0.9;
+    }
+	.social-btn .btn-primary {
+        background: #507cc0;
+		font-size: 24px;
+    }
+	.social-btn .btn-info {
+		background: #64ccf1;
+	}
+	.social-btn .btn-danger {
+		background: #df4930;
+		font-size: 24px;
+	}
+    .or-seperator {
+        margin-top: 20px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+    }
+    .or-seperator i {
+        padding: 0 10px;
+        background: #f7f7f7;
+        position: relative;
+        top: -11px;
+        z-index: 1;
+    }   
 /* Basic */
 
 	@-ms-viewport {
@@ -2121,7 +2178,7 @@ input, select, textarea {
 			min-width: 160px;
 			overflow: auto;
 			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-			z-index: 1;
+			z-index: 500;
 		  }
 		  
 		  .dropdown-content a {
@@ -2431,7 +2488,9 @@ input, select, textarea {
 			background: #fff;
 			border-color: rgba(255, 255, 255, 0);
 			color: #f08c89;
-			font-size: 1.25em;
+			font-size: 1.5em;
+			border: solid 1px #c2c7cc;
+			border-radius: 0.5em;
 		}
 
 			#hero .button:hover {

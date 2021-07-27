@@ -1,14 +1,29 @@
-<h1> Sign up for a new account</h1>
+<div class="login-form">
+    <%= form_with model: @user do |f| %>
     <%= render 'layouts/errors', object: @user %>
-<%= form_with model: @user do |f| %>
-    <%= f.label :username %> 
-    <%= f.text_field :username %> <br>
-    <%= f.label :password %>
-    <%= f.password_field :password %> <br>
-    <%= f.label :password_confirmation %> 
-    <%= f.password_field :password_confirmation %> <br>
-    <%= f.label :email %>
-    <%= f.email_field :email %> <br>
-    <%= f.submit %>
-<% end %>
-
+    <h2 class="text-center" style="color:rgb(0,0,0);">New User Registration</h2>   
+    <div class="form-group">
+    	<div class="input-group">
+            <%= f.text_field(:username, placeholder: "User Name", class: "form-control", required: "required") %>
+        </div>
+    </div>
+	<div class="form-group">
+        <div class="input-group">
+        	<%= f.password_field(:password, placeholder: "Password", class: "form-control", required: "required") %>			
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+        	<%= f.password_field(:password_confirmation, placeholder: "Confirm Password", class: "form-control", required: "required") %>			
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+        	<%= f.email_field(:email, placeholder: "Email Address", class: "form-control", required: "required") %>			
+        </div>
+    </div>          
+    <div class="form-group">
+        <%= f.submit "Sign Me Up!", class: "btn btn-dark", style: "color:rgb(0,0,0);font-weight:bold;" %>
+    </div>
+    <% end %>
+</div>

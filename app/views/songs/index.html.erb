@@ -25,15 +25,14 @@
                 <td><%= link_to song.genre.name, song.genre %></td>
                 <% if current_user %>
                     <% if !current_user.user_songs.where(song_id: song.id).exists? %>
-                        <td style="text-align:center;">Yes</td>
+                        <td style="text-align:center;">No</td>
                         <td><%= form_with model: @user_song, method: :post, url: add_song_path do |f|%>
-                              
                                 <%= f.hidden_field :user_id %>
                                 <%= f.hidden_field :song_id, :value => song.id %>
                                 <%= f.submit "Add song to collection" %></td>
                             <% end %>
                     <% else %>
-                        <td style="text-align:center;">No</td>
+                        <td style="text-align:center;">Yes</td>
                         <td><%= form_with model: @user_song, method: :delete, url: remove_song_path do |f| %>
                                 <%= f.hidden_field :user_id %>
                                 <%= f.hidden_field :song_id, :value => song.id %>

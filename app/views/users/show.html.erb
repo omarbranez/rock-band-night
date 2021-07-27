@@ -4,8 +4,6 @@
 
     <% if !current_user.user_songs.empty? %>
         <p>The last song you added was <%= link_to current_user.last_song_added.full_title, artist_song_path(current_user.last_song_added.artist, current_user.last_song_added) %></p>
-    <% else %>
-        <p>You do not have any songs in your collection</p>
     <% end %>
     <p>Switch to Party Mode? </p>
 <% else %>

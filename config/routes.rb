@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   patch '/users/:id', to: 'users#create_username'
   post '/users', to: 'users#create'
   get '/users/:username', to: 'users#show', as: 'user'
-  get '/users/:username/edit', to: 'users#edit', as: 'edit_user'
+  # get '/users/:username/edit', to: 'users#edit', as: 'edit_user'
   get '/users/:username/toggle', to: 'users#toggle_party', as: 'toggle_party'
   get '/search', to: 'search#show', as: 'search_page'
   post '/usersongs', to: 'user_songs#create', as: 'add_song'
