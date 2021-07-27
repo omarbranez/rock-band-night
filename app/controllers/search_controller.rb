@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
     def show
         if params[:search].blank?  
+            binding.pry
             redirect_to(search_page_path, alert: "Empty field!") and return
         else  
             @search = params[:search]

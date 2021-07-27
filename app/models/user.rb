@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
     has_many :songs, through: :user_songs
     validates_presence_of :username, on: :create
     validates_uniqueness_of :username, on: :create
-    validates_format_of :username, with: /(?=.*([a-z]|[A-Z]))/, on: :update
+    # validates_format_of :username, with: /(?=.*([a-z]|[A-Z]))/, on: :update
+    before_validation :generate_fake_email
     validates_uniqueness_of :email, on: :create
     after_create :remove_spaces_from_username
     has_secure_password
@@ -20,6 +21,12 @@ class User < ActiveRecord::Base
     def remove_spaces_from_username
         if self.username.match(/\s/)
             self.update(username: self.username.gsub(/\s/, ""))
+        end
+    end
+
+    def generate_fake_email
+        if self.email.nil?
+            self.email = "#{self.id}@#{self.id}.com"
         end
     end
 

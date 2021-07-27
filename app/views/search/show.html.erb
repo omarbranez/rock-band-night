@@ -2,6 +2,5 @@
 <h3>Search Results for "<%= @search %>" - <%= @results.count %> songs found. </h3>  
 <ul>
 <% @results.each do |result| %>  
-    <li><%= link_to "#{result.artist.full_name} - #{result.full_title}", artist_song_path(result.artist, result) %></li>
+    <ul><%= link_to "#{result.artist.full_name} - #{result.full_title}", artist_song_path(result.artist, result) %></ul>
 <% end %>
-</ul>

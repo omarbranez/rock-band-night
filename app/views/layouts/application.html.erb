@@ -54,7 +54,9 @@
     	    								<%= link_to "Sign In", signin_path %>
 										<% else %>
         									<%= link_to "My Profile", user_path(current_user.username) %>
-											<%= link_to "New Song", new_song_path %>
+											<% if current_user == User.find(1) %>
+												<%= link_to "New Song", new_song_path %>
+											<% end %>
         									<%= link_to "Log Out", logout_path, method: :delete %>
 										<% end %>
 									</div>
@@ -84,26 +86,23 @@
 					<% end %>
 					<% if current_page?(root_path) %>
 					<section id="hero" class="container">
-							<header>
-								<h2>Welcome to Rock Band Night
-								<br />
-								For Smoother Rocking Sessions!</h2>
-							</header>
-							
-								<a href="/signin" class="button">Get this party started!</a>
-						
+						<header>
+							<h2>Welcome to Rock Band Night
+							<br />
+							For Smoother Rocking Sessions!</h2>
+						</header>
+						<a href="/signin" class="button">Get this party started!</a>
 					</section>
 					<% end %>
 					<%= yield %>
 				</div>
-			<!-- Footer -->
 				<div id="footer-wrapper">
 					<div id="footer" class="container">
 						<header class="major">
 							<h2>Last Updated:</h2>
 							<p>Initial</p>
 						</header>
-				</div>
+					</div>
 				<div id="copyright" class="container">
 					<ul class="menu">
 						<li><small><strong>This site is neither operated nor sponsored by Harmonix Music Systems, Inc. Rock Band and all related titles and logos are trademarks of Harmonix Music Systems, Inc. All rights reserved.</strong><br></li>
