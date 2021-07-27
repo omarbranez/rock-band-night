@@ -34,4 +34,6 @@ class UserSong < ActiveRecord::Base
             UserSong.create(user_id: current_user.id, song_id: song.id)
         end
     end
+
+    
 end

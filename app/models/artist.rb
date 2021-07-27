@@ -4,9 +4,7 @@ class Artist < ActiveRecord::Base
     has_many :songs
 
     validates_presence_of :name
-    before_create :check_name_for_article
-
-    # scope :artist_sort, -> { order("name ASC") }
+    # before_create :check_name_for_article
 
     def full_name
         if self.article != ""
@@ -16,13 +14,15 @@ class Artist < ActiveRecord::Base
         end
     end
 
-    def check_name_for_article # will refactor as abstract class, since song has the same
-        if self.name[0..2] == "The"
-            self.article = "The"
-        else
-            if self.name[0..1] == "A "
-                self.article = "A"
-            end
-        end
-    end
+    # def check_name_for_article
+    #     if self.name[0..2] == "The"
+    #         self.article = "The"
+    #         self.name = self.name.delete_prefix("The ")
+    #     elsif self.name[0..1] == "A "
+    #         self.article = "A"
+    #         self.name = self.name.delete_prefix("A ")
+    #     else
+    #         self.article = ""
+    #     end
+    # end
 end

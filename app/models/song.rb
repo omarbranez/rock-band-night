@@ -11,11 +11,12 @@ class Song < ActiveRecord::Base
     validates_presence_of :artist_id
     validates :year, numericality: { greater_than: 1954, less_than_or_equal_to: Proc.new {|record| Date.current.year } }
     validates :vocal_parts, presence: true, inclusion: { in: 0..3, message: "Number of Vocal Parts must be between 0 and 3" }
-
+    
     accepts_nested_attributes_for :artist
     # accepts_nested_attributes_for :genre
 
-    before_create :check_name_for_article, :set_song_source_and_availability, :get_xbox_link, :get_psn_link, :get_spotify_id
+    before_create :check_name_for_article, :check_artist_name_for_article, :set_song_source_and_availability
+    after_create :get_xbox_link, :get_psn_link, :get_spotify_id
     scope :owned, ->(user) { left_outer_joins(:users).where(user_songs: { user_id: user.id } ) }
     scope :unowned, ->(user) { where.not(id: owned(user)) }
     # scope :sorted, ->(column) { joins(:"#{column}").order("#{column.pluralize}.name") }
@@ -111,6 +112,18 @@ class Song < ActiveRecord::Base
         end
     end
 
+    def check_artist_name_for_article
+        if self.artist.name[0..2] == "The"
+            self.artist.article = "The"
+            self.artist.name = self.artist.delete_prefix("The ")
+        elsif self.artist.name[0..1] == "A "
+            self.artist.article = "A"
+            self.artist.name = self.artist.name.delete_prefix("A ")
+        else
+            self.artist.article = ""
+        end
+    end
+
     def set_song_source_and_availability
         self.source = 100
         self.availability = 4
@@ -129,6 +142,7 @@ class Song < ActiveRecord::Base
         else
             self.xbox_link = "Scrape Error"
         end
+        self.save
     end
 
     def get_psn_link
@@ -144,6 +158,7 @@ class Song < ActiveRecord::Base
         else
             self.psn_link = "Scrape Error"
         end
+        self.save
     end
 
     # def render_xbox_link
@@ -165,7 +180,8 @@ class Song < ActiveRecord::Base
 
     def get_spotify_id
         RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
-        tracks = RSpotify::Track.search("#{self.full_title}")
+        # tracks = RSpotify::Track.search("#{self.full_title}")
+        tracks = RSpotify::Track.search("#{self.full_title} artist:#{self.artist.full_name}")
         if tracks.first.artists.first.name == self.artist.full_name
             self.spotify_id = tracks.first.id
         elsif tracks.second.artists.first.name == self.artist.full_name
@@ -175,6 +191,7 @@ class Song < ActiveRecord::Base
         else
             self.spotify_id = "Find It Yourself"
         end
+        self.save
     end
 
     def self.search(search)  

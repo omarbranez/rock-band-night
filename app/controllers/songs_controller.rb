@@ -20,8 +20,7 @@ class SongsController < ApplicationController
         if current_user
             @user_song = current_user.user_songs.build(user_id: current_user.id)
         end
-        session[:return_to] = request.referrer #keep track of what page they're on
-        # if someone is logged in, initialize a new song for that user
+        session[:return_to] = request.referrer 
 
     end
 
