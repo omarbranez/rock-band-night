@@ -7,6 +7,7 @@
         There are no ratings for this song yet.<br>
     <% end %>
     <% if current_user.songs.exists?(@song.id)%>        
+        <%= display_own_rating %>
         <%= render partial: 'rate' %>
     <% else %>
         You can rate this song if you are signed in and you own it.

@@ -36,4 +36,11 @@ module SongsHelper
         end
     end
     
+    def display_own_rating
+        if !@user_song.find_by(user_id: current_user.id, song_id: @song.id).rating.nil?
+            content_tag(:p, "Your Rating: #{@user_song.find_by(user_id: current_user.id, song_id: @song.id).rating}")
+        else
+            content_tag(:p, "You have not rated this song yet.")
+        end
+    end
 end

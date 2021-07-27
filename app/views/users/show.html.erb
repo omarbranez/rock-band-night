@@ -5,7 +5,6 @@
     <% if !current_user.user_songs.empty? %>
         <p>The last song you added was <%= link_to current_user.last_song_added.full_title, artist_song_path(current_user.last_song_added.artist, current_user.last_song_added) %></p>
     <% end %>
-    <p>Switch to Party Mode? </p>
 <% else %>
     <p><%= @user.username %>'s Profile Page %> </p>
     <p><%= @user.username %> owns <%= @user.songs.count %> songs.</p> 
@@ -13,4 +12,4 @@
 <% end %>
 
 <%= link_to "Return to Song List", songs_path %> <br>
-<%= link_to "Begin Party Mode", toggle_party_path %>
+<% link_to "Begin Party Mode", toggle_party_path %>

@@ -1,7 +1,7 @@
 <%= form_with model: @user_song, method: :patch, url: rate_song_path do |f| %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.hidden_field :song_id, :value => @song.id  %>
-    <%= f.label :rating, "Your Rating" %>
-    <%= f.number_field :rating, in: 1..5 %>
+    <%= f.label :rating, "Your Rating"%>
+    <%= f.number_field :rating, in: 1..5, placeholder: "Select from 1 (worst) to 5 (best)", style: "width:15em;" %>
     <%= f.submit "Update Rating" %>
 <% end %> 
