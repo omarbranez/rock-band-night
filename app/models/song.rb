@@ -6,21 +6,20 @@ class Song < ActiveRecord::Base
     belongs_to :genre
     has_many :user_songs
     has_many :users, through: :user_songs
+    
+    accepts_nested_attributes_for :artist
 
     validates_presence_of :name
     validates_presence_of :artist_id
     validates :year, numericality: { greater_than: 1954, less_than_or_equal_to: Proc.new {|record| Date.current.year } }
     validates :vocal_parts, presence: true, inclusion: { in: 0..3, message: "Number of Vocal Parts must be between 0 and 3" }
     
-    accepts_nested_attributes_for :artist
-    # accepts_nested_attributes_for :genre
 
     before_create :check_name_for_article, :check_artist_name_for_article, :set_song_source_and_availability
     after_create :get_xbox_link, :get_psn_link, :get_spotify_id
     scope :owned, ->(user) { left_outer_joins(:users).where(user_songs: { user_id: user.id } ) }
     scope :unowned, ->(user) { where.not(id: owned(user)) }
-    # scope :sorted, ->(column) { joins(:"#{column}").order("#{column.pluralize}.name") }
-    # @songs = Song.joins(:"#{params[:sort]}").order("#{params[:sort]}s.name").page(params[:page])
+
     
     def full_title
         if self.article != ""
@@ -100,6 +99,7 @@ class Song < ActiveRecord::Base
         self.artist = Artist.find_or_create_by(name: name)
     end
 
+
     def check_name_for_article
         if self.name[0..2] == "The"
             self.article = "The"
@@ -107,6 +107,12 @@ class Song < ActiveRecord::Base
         elsif self.name[0..1] == "A "
             self.article = "A"
             self.name = self.name.delete_prefix("A ")
+        elsif self.name[0] == "("
+            self.article = "("
+            self.name = self.name.delete_prefix("(")
+        elsif self.name[0..2] == "..." #dammit metallica
+            self.article = "..."
+            self.name = self.name.delete_prefix("...")
         else
             self.article = ""
         end

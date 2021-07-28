@@ -5,10 +5,10 @@ class SongsController < ApplicationController
         if params[:view]        
             if params[:view] == "owned"
                 @songs = @songs.owned(current_user).page(params[:page])
+            elsif params[:view] == "unowned"
+                @songs = @songs.unowned(current_user).page(params[:page])
             else 
-                if params[:view] == "unowned"
-                    @songs = @songs.unowned(current_user).page(params[:page])
-                end
+                @songs = Song.order('LOWER(name)')
             end
         end
         if params[:sort]
@@ -21,7 +21,6 @@ class SongsController < ApplicationController
             @user_song = current_user.user_songs.build(user_id: current_user.id)
         end
         session[:return_to] = request.referrer 
-
     end
 
     def show

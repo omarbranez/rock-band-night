@@ -4,7 +4,6 @@ class Artist < ActiveRecord::Base
     has_many :songs
 
     validates_presence_of :name
-    # before_create :check_name_for_article
 
     def full_name
         if self.article != ""

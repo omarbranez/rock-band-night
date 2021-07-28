@@ -16,7 +16,8 @@
         <%= paginate @songs %> 
         <div class="sort-options"> 
             <%= link_to "Show only owned songs", :controller => "songs", :action => "index", :view => "owned" %> |
-            <%= link_to "Show only unowned songs", :controller => "songs", :action => "index", :view => "unowned" %>
+            <%= link_to "Show only unowned songs", :controller => "songs", :action => "index", :view => "unowned" %> | 
+            <%= link_to "Reset Sorting", :controller => "songs", :action => "index", :view => "default" %>
         </div>
         <% @songs.each do |song| %>
             <tr>
