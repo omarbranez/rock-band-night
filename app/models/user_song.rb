@@ -28,12 +28,5 @@ class UserSong < ActiveRecord::Base
         !self.average(:rating).nil?
     end
 
-    def add_songs_from_game(source_params)
-        songs = Song.where(source: source_params).pluck(:id)
-        songs.each do |song|
-            UserSong.create(user_id: current_user.id, song_id: song.id)
-        end
-    end
-
     
 end

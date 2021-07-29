@@ -45,12 +45,12 @@ class UserSongsController < ApplicationController
         params.require(:user_song).permit(:user_id, :song_id, :rating)
     end
 
-    # def add_songs_from_game(source_params)
-    #     songs = Song.where(source: source_params).pluck(:id)
-    #     songs.each do |song|
-    #         UserSong.create(user_id: current_user.id, song_id: song)
-    #     end
-    # end
+    def add_songs_from_game(source_params)
+        songs = Song.where(source: source_params).pluck(:id)
+        songs.each do |song|
+            UserSong.create(user_id: current_user.id, song_id: song)
+        end
+    end
 
     def last_song_added
         Song.find(current_user.user_songs.last.song_id).full_title

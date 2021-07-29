@@ -30,4 +30,8 @@ module ApplicationHelper
             "Album Information Not Found"
         end
     end
+
+    def delete_user_button
+        link_to "Delete My Account", user_path(current_user), method: :delete
+    end
 end

@@ -32,8 +32,8 @@ class UsersController < ApplicationController
             redirect_to party_root_path
         else
             if current_user.party_enabled == false
-            flash[:notice] = "You have exited Party Mode"
-            redirect_to root_path
+                flash[:notice] = "You have exited Party Mode"
+                redirect_to root_path
             end
         end
     end
@@ -43,6 +43,7 @@ class UsersController < ApplicationController
         if current_user == @user
             @user.destroy
             session.clear
+            flash[:notice] = "Your account has been deleted and you have been signed out"
             redirect_to root_path
         else
             flash[:notice] = "That's not nice!"
