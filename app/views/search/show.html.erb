@@ -1,6 +1,13 @@
 <h1>Search for Songs</h1>
 <h3>Search Results for "<%= @search %>" - <%= @results.count %> songs found. </h3>  
-<ul>
+
 <% @results.each do |result| %>  
-    <ul><%= link_to "#{result.artist.full_name} - #{result.full_title}", artist_song_path(result.artist, result) %></ul>
+<div class="card-group">
+  <div class="card">
+    <%= display_album_art(result) %>
+    <div class="card-body">
+      <h5 class="card-title"><%= link_to result.full_title, artist_song_path(result.artist, result) %></h5>
+      <p class="card-text"><%= link_to result.artist.full_name, artist_path(result.artist) %></p>
+    </div>
+  </div>
 <% end %>

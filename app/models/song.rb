@@ -183,6 +183,13 @@ class Song < ActiveRecord::Base
         self.save
     end
 
+    # def get_album_art_url(result)
+    #     RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
+    #     track = RSpotify::Track.search("#{result.full_title} artist:#{result.artist.full_name}")
+    #     album = RSpotify::Album.find("#{track.first.album.id}")
+    #     album.images.second.values.second
+    # end
+
     def self.search(search)  
         where("lower(artists.name) LIKE :search OR lower(songs.name) LIKE :search", search: "%#{search.downcase}%").distinct   
     end

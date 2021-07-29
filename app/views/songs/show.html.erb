@@ -1,5 +1,7 @@
 <h1><%= @song.full_title %></h1> <br>
 <h2>by: <%= @song.is_song_cover? %> <%= link_to @song.artist.full_name, artist_path(@song.artist) %></h2>
+<%= display_album_art(@song) %>
+<h3>From the album: <%= get_album_name(@song) %></h3>
 <p>Average User Rating: 
     <% if @user_song.has_ratings? %>
         <%= @user_song.average_rating %> based on <%= @user_song.count_ratings %> ratings. </p><br>
