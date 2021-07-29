@@ -1,9 +1,10 @@
 class UserSongsController < ApplicationController
-    include ActiveModel::Validations    
-    validates_presence_of :user_id
-    validates_presence_of :song_id
-    validates :rating, inclusion: { in: 1..5, message: "Rating must be between 1 and 5" }
-        
+    # include ActiveModel::Validations    
+    # validates_presence_of :user_id
+    # validates_presence_of :song_id
+    # validates :rating, inclusion: { in: 1..5, message: "Rating must be between 1 and 5" }
+    before_action :message_if_not_logged_in 
+    
     def create
         user_song = UserSong.create(user_song_params)
         flash[:notice] = "Successfully added #{last_song_added} to collection!"

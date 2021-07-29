@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     end
 
     def message_if_not_admin
-        if current_user != User.find(1)
+        if !user_is_admin
             redirect_back, flash[:notice] = "You do not have permission to perform this action"
         end
     end

@@ -8,7 +8,7 @@
     <% else %>
         There are no ratings for this song yet.<br>
     <% end %>
-    <% if current_user.songs.exists?(@song.id)%>        
+    <% if current_user && current_user.songs.exists?(@song.id)%>        
         <%= display_own_rating %>
         <%= render partial: 'rate' %>
     <% else %>
@@ -33,9 +33,10 @@
 
 <%= edit_button_for_admin %><br>
 <%= destroy_button_for_admin %>
-
+<% if current_user %>
 <%= form_with model: @user_song, method: :post, url: add_song_path do |f|%>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.hidden_field :song_id, :value => @song.id %>
     <%= f.submit "Add song to collection" %></td>
+<% end %>
 <% end %>

@@ -74,6 +74,8 @@
 								<% else %>
 									<li><%= link_to "End Party Mode", toggle_party_path(current_user.username) %></li>
 								<% end %>
+							<% else %>
+								Party Mode Unavailable
 							<% end %>
 							<% unless current_user && current_user.party_enabled == true %>
 								<%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-left') do %>  

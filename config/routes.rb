@@ -16,12 +16,10 @@ Rails.application.routes.draw do
   post '/users', to: 'users#create'
   get '/users/:username', to: 'users#show', as: 'user'
   delete '/users/:id', to: 'users#destroy'
-  # get '/users/:username/edit', to: 'users#edit', as: 'edit_user'
   get '/users/:username/toggle', to: 'users#toggle_party', as: 'toggle_party'
   get '/search', to: 'search#show', as: 'search_page'
   post '/usersongs', to: 'user_songs#create', as: 'add_song'
   post '/usersongs/game', to: 'user_songs#add_game', as: 'add_game' 
-  # need to test #match to just use one action
   patch '/usersongs', to: 'user_songs#rate_song', as: 'rate_song'
   delete '/usersongs', to: 'user_songs#destroy', as: 'remove_song'
   get '/signin', to: 'sessions#new', as: 'signin'
