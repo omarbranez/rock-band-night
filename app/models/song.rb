@@ -167,23 +167,6 @@ class Song < ActiveRecord::Base
         self.save
     end
 
-    # def render_xbox_link
-    #     if self.id > 2795
-    #     page = Mechanize.new.get("https://www.google.com")
-    #     google_form = page.form('f') 
-    #     google_form.q = "#{self.xbox_link}"
-    #     page = Mechanize.new.submit(google_form)
-    #     page.links[15].href[7..63]
-    # end
-
-    # def render_psn_link
-    #     page = Mechanize.new.get("https://www.google.com")
-    #     google_form = page.form('f') 
-    #     google_form.q = "#{self.psn_link}"
-    #     page = Mechanize.new.submit(google_form)
-    #     page.links[15].href[7..86]
-    # end # moved to song helpers
-
     def get_spotify_id
         RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
         # tracks = RSpotify::Track.search("#{self.full_title}")

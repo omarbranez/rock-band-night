@@ -2,8 +2,7 @@ class SearchController < ApplicationController
     def show
         if params[:search].blank?  
             flash[:alert] = "Search field empty!"
-            redirect_back(fallback_location: root_path)
-            # binding.pry
+            redirect_back(fallback_location: songs_path)
         else  
             @search = params[:search]
             @results = Song.joins(:artist).search(params[:search]).order(:name)
