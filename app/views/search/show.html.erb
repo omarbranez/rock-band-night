@@ -1,7 +1,8 @@
 <h1>Search for Songs</h1>
 <h3>Search Results for "<%= @search %>" - <%= @results.count %> songs found. </h3>  
 
-<% @results.each do |result| %>  
+<% @results.each do |result| %>
+<%# binding.pry %>  
 <div class="card-group">
   <div class="card">
     <%= display_album_art(result) %>

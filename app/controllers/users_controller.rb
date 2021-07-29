@@ -25,6 +25,19 @@ class UsersController < ApplicationController
         @user = User.find_by(id: params[:id])
     end
     
+    def toggle_party
+        current_user.toggle(:party_enabled).save
+        if current_user.party_enabled == true 
+            flash[:notice] = "You have entered Party Mode" 
+            redirect_to party_root_path
+        else
+            if current_user.party_enabled == false
+            flash[:notice] = "You have exited Party Mode"
+            redirect_to root_path
+            end
+        end
+    end
+    
     private
 
     def username
@@ -38,18 +51,6 @@ class UsersController < ApplicationController
         redirect_to user_path(user.username)        
     end
 
-    def toggle_party
-        current_user.toggle(:party_enabled).save
-        if current_user.party_enabled == true 
-            flash[:notice] = "You have entered Party Mode" 
-            redirect_to party_root_path
-        else
-            if current_user.party_enabled == false
-            flash[:notice] = "You have exited Party Mode"
-            redirect_to root_path
-            end
-        end
-    end
 
     def user_params
         params.require(:user).permit(:username, :password, :password_confirmation, :email)
