@@ -1,4 +1,4 @@
 <h1>List of Artists</h1>
 <% @artists.each do |artist| %>
-        <%= link_to artist.full_name, artist %> HAS <%= artist.songs.count %> SONG<%= artist.songs.count > 1 ? "S" : "" %>
+        <li><%= link_to artist.full_name, artist %> HAS <%= artist.songs.count %> SONG<%= artist.songs.count > 1 ? "S" : "" %></li>
 <% end %>

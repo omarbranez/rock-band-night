@@ -1,0 +1,29 @@
+<div class="login-form">
+    <%= form_with model: @song do |f| %>
+    <%= render 'layouts/errors', object: @user %>
+    <h2 class="text-center" style="color:rgb(0,0,0);">New User Registration</h2>   
+    <div class="form-group">
+    	<div class="input-group">
+            <%= f.text_field(:username, placeholder: "User Name", class: "form-control", required: "required") %>
+        </div>
+    </div>
+	<div class="form-group">
+        <div class="input-group">
+        	<%= f.password_field(:password, placeholder: "Password", class: "form-control", required: "required") %>			
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+        	<%= f.password_field(:password_confirmation, placeholder: "Confirm Password", class: "form-control", required: "required") %>			
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+        	<%= f.email_field(:email, placeholder: "Email Address", class: "form-control", required: "required") %>			
+        </div>
+    </div>          
+    <div class="form-group">
+        <%= f.submit "Sign Me Up!", class: "btn btn-dark", style: "color:rgb(0,0,0);font-weight:bold;" %>
+    </div>
+    <% end %>
+</div>

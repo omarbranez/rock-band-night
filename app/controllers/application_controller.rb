@@ -29,19 +29,15 @@ class ApplicationController < ActionController::Base
 
     def message_if_not_admin
         if !user_is_admin
-            redirect_back, flash[:notice] = "You do not have permission to perform this action"
+            flash[:notice] = "You do not have permission to perform this action"
+            redirect_to songs_path
         end
     end
 
-    def redirect_if_not_logged_in
-        if !logged_in?
-            redirect_to root_path
-        end
-    end
-
-    def message_if_not_logged_in
+    def action_if_not_logged_in
         if !logged_in?
             flash[:notice] = "You need to be logged in to perform this action"
+            redirect_to root_path
         end
     end
 

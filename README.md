@@ -1,13 +1,23 @@
 # rock-band-night
 A Rails app that supplements your Rock Band gaming nights.
-## Planned Features
-1. Seed initial Database through RBDB (will add in songs manually since they stopped updating, to demonstrate functionality)
-2. Booklet PDF Export, similar to karaoke songbooks.
-3. Party Mode UI, to display songs waiting to be played along with the ability to shuffle and delete from an account with Host privileges.
-4. TPA via XBox Live and PSN, in order to facilitate in-app links to purchase unowned downloadable content.
-5. Import songs via Host user's in-game song cache.
-6. Import songs via screenshots from official RB Companion App.
-7. Manual import of songs, if both options are not viable.
-8. Regular updates to database of selectable DLC mimicing official release schedule (Fridays).
-9. Macros for automatically selecting next song in playlist. *possibly XBox only* 
-9. More to come, if I begin to overthink things a lot more.
+Import your song collection, discover new music, and coordinate gameplay!
+## Features
+1. Regular updates for every song available in-game, weekly.
+2. Song Booklet Export: let your friends pick a song while waiting their turn!
+3. Party Mode!: You, the host, let your friends pick upcoming songs karaoke bar style!
+4. Import song collection from other sites, as long as they're in CSV format.
+5. Record stats from your sessions, and view statistics from other users!
+## Instructions (once deployed)
+* Register for an account
+Create a new user, or sign-in via your Google or Facebook account!
+* Add your song collection
+Search for your downloadable content, or import entire game setlists in a snap!
+* Give your guests choices!
+Even if you don't own a song, you guests can request (option permitting) for you to purchase a song for use, along with a quick streamling to your preferred platform's digital marketplace!
+* Moderate!
+You are free to move songs up and down the queue, or reject them outright. Each song is user-reviewed and screened for difficulty and playability!
+* ROCK OUT!
+## Acknowledgments
+* [RBDB](https://rbdb.io/), for dutifully maintaining information on the vast, overwhelming majority of the Rock Band library
+* [RSpotify](https://github.com/guilhermesad/rspotify), for providing a simple avenue to obtaining song information.
+* [Harmonix](https://www.harmonixmusic.com/), for providing the inspiration to keep our community engaged and rocking out for over 10 years!
