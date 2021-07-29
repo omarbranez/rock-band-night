@@ -12,9 +12,8 @@ class SongsController < ApplicationController
                 @songs = Song.order('LOWER(name)')
             end
         end
-        if params[:sort]
-            # @songs = Song.sorted(params[:sort]).order("#{params[:page]}")
-            @songs = Song.joins(:"# {params[:sort]}").order("#{params[:sort]}s.name").page(params[:page])
+        if params[:sort] == "artist" || params[:sort] == "genre"
+            @songs = Song.joins(:"#{params[:sort]}").order("#{params[:sort]}s.name").page(params[:page])
         else
             @songs = @songs.page(params[:page])
         end

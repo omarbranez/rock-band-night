@@ -13,11 +13,6 @@
     </thead>
     <tbody>
         <%= page_entries_info @songs %>
-        <%= form_tag(songs_path, method: :get) do %>
-            <%= number_field_tag :page, in: 1..5 %>
-            <%= submit_tag "Go" %>
-        <% end %>
-
         <%= paginate @songs %> 
         <div class="sort-options"> 
             <%= link_to "Show only owned songs", :controller => "songs", :action => "index", :view => "owned" %> |

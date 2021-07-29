@@ -5,7 +5,7 @@ class SearchController < ApplicationController
             redirect_back(fallback_location: songs_path)
         else  
             @search = params[:search]
-            @results = Song.joins(:artist).search(params[:search]).order(:name)
+            @results = Song.joins(:artist).search(params[:search]).order(:name).page(params[:page]).per(10)
         end  
     end
 
