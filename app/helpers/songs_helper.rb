@@ -20,6 +20,12 @@ module SongsHelper
         end
     end
 
+    def destroy_button_for_admin
+        if current_user == User.find(1)
+            link_to "Delete Song", artist_song_path(@song.artist, @song), method: :delete
+        end
+    end
+
     def render_xbox_link
         if self.id > 2795
             link_to "Buy this song on Xbox Live Marketplace", "https://www.microsoft.com#{self.xbox_link}"
@@ -43,4 +49,5 @@ module SongsHelper
             content_tag(:p, "You have not rated this song yet.")
         end
     end
+
 end

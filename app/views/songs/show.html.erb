@@ -31,4 +31,11 @@
     <p>Sign Up or Log In to track your songs!</p>
 <% end %>
 
-<%= edit_button_for_admin %>
+<%= edit_button_for_admin %><br>
+<%= destroy_button_for_admin %>
+
+<%= form_with model: @user_song, method: :post, url: add_song_path do |f|%>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :song_id, :value => @song.id %>
+    <%= f.submit "Add song to collection" %></td>
+<% end %>

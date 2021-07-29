@@ -1,7 +1,7 @@
 module ApplicationHelper
 
     def user_is_admin?
-        !!current_user == User.find(1)
+        current_user == User.find(1)
     end
 
     def get_album_art_url(song)

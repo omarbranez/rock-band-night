@@ -38,6 +38,17 @@ class UsersController < ApplicationController
         end
     end
     
+    def destroy
+        @user = User.find(params[:id])
+        if current_user == @user
+            @user.destroy
+            session.clear
+            redirect_to root_path
+        else
+            flash[:notice] = "That's not nice!"
+        end
+    end
+
     private
 
     def username

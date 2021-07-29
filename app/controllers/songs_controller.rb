@@ -47,7 +47,7 @@ class SongsController < ApplicationController
         if @song.valid?
             @song.save
             flash[:notice] = "#{@song.full_title} has been successfully added to database!"
-            redirect_to songs_path
+            redirect_to artist_song_path(@song.artist, @song)
         else
             @song.destroy
             render 'songs/new'
@@ -68,7 +68,13 @@ class SongsController < ApplicationController
     end
 
     def destroy
-
+        if user_is_admin
+            @song.destroy
+            redirect_to songs_path
+        else
+            flash[:notice] = "Only an admin can delete songs"
+            render 'songs'
+        end
     end
 
     private
