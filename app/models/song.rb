@@ -4,7 +4,7 @@ class Song < ActiveRecord::Base
 
     belongs_to :artist
     belongs_to :genre
-    has_many :user_songs
+    has_many :user_songs, dependent: :destroy
     has_many :users, through: :user_songs
     
     accepts_nested_attributes_for :artist

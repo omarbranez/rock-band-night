@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-    has_many :user_songs 
+    has_many :user_songs, dependent: :destroy
     has_many :songs, through: :user_songs
     validates_presence_of :username, on: :create
     validates_uniqueness_of :username, on: :create
